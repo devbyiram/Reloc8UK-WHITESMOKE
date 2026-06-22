@@ -1,0 +1,213 @@
+/* Reloc8UK property portal — logged-in page layout */
+.portal-body {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+.portal-main {
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.portal-card {
+  background: #fff;
+  border: 1px solid rgba(30, 41, 59, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.portal-card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.08);
+}
+
+.portal-card-header h4,
+.portal-card-header h5,
+.portal-card-header h6 {
+  margin: 0;
+  color: #1e293b !important;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+  display: block;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.12);
+  padding-bottom: 0.5rem;
+}
+
+.portal-card-body {
+  padding: 1.25rem 1.5rem;
+}
+
+.portal-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.portal-property-card {
+  border: 1px solid rgba(30, 41, 59, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  height: 100%;
+  background: #fff;
+}
+
+.portal-property-card--featured {
+  border-color: #10b981;
+}
+
+.imgBanner {
+  background-size: cover;
+  background-position: center center;
+  display: block;
+  min-height: 200px;
+}
+
+.fixedTopLeft {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.fixedTopRight {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 2;
+}
+
+.portal-property-card .card-body {
+  padding: 1rem 1.25rem;
+}
+
+.portal-property-card .badge.bg-primary {
+  background-color: #10b981 !important;
+}
+
+.portal-property-card .btn-outline-primary {
+  color: #10b981;
+  border-color: #10b981;
+}
+
+.portal-property-card .btn-outline-primary:hover {
+  background-color: #10b981;
+  border-color: #10b981;
+  color: #fff;
+}
+
+.portal-property-card .btn-outline-success {
+  color: #1e293b;
+  border-color: #1e293b;
+}
+
+.portal-property-card .btn-outline-success:hover {
+  background-color: #1e293b;
+  border-color: #1e293b;
+  color: #fff;
+}
+
+.portal-footer {
+  background: #fff;
+  border-top: 1px solid rgba(30, 41, 59, 0.08);
+  margin-top: 2rem;
+}
+
+.portal-footer .copyright {
+  color: #64748b;
+}
+
+.portal-btn-primary {
+  color: #10b981;
+  border: 1px solid #10b981;
+  background: transparent;
+  border-radius: 10px;
+  padding: 0.625rem 1.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.portal-btn-primary:hover {
+  background-color: #10b981;
+  color: #fff;
+  text-decoration: none;
+}
+
+.portal-properties-carousel {
+  margin-top: 0.5rem;
+}
+
+.portal-properties-carousel .slick-dots li button:before {
+  color: #10b981;
+}
+
+.portal-properties-carousel .slick-dots li.slick-active button:before {
+  color: #059669;
+}
+
+.portal-property-tabs > .nav.nav-tabs {
+  border: none;
+  color: #fff;
+  background: #1e293b;
+  border-radius: 0;
+}
+
+.portal-property-tabs > div a.nav-item.nav-link,
+.portal-property-tabs > div a.nav-item.nav-link.active {
+  border: none;
+  padding: 18px 25px;
+  color: #fff;
+  background: #1e293b;
+  border-radius: 0;
+}
+
+.portal-property-tabs > div a.nav-item.nav-link:hover,
+.portal-property-tabs > div a.nav-item.nav-link:focus {
+  border: none;
+  background: #10b981;
+  color: #fff;
+  border-radius: 0;
+  transition: background 0.20s linear;
+}
+
+.portal-filter-card .form-check-input:checked {
+  background-color: #10b981;
+  border-color: #10b981;
+}
+
+.portal-filter-card .btn-secondary {
+  background-color: #1e293b;
+  border-color: #1e293b;
+}
+
+.portal-filter-card .btn-secondary:hover {
+  background-color: #334155;
+  border-color: #334155;
+}
+
+.flex-direction-nav a {
+  height: 45px !important;
+}
+
+.portal-property-detail .badge.bg-primary {
+  background-color: #10b981 !important;
+}
+
+.portal-property-detail .bg-primary {
+  background-color: #10b981 !important;
+}
+
+.portal-property-detail .bg-secondary {
+  background-color: #1e293b !important;
+}
+
+.portal-property-links .list-group-item.bg-info {
+  background-color: #10b981 !important;
+  border-color: #10b981;
+}
+
+.portal-property-links .list-group-item.bg-dark {
+  background-color: #1e293b !important;
+  border-color: #1e293b;
+}

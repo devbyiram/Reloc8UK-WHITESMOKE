@@ -1,0 +1,39 @@
+# Laravel reference project (local only)
+Reloc8uk/
+freelanceproject_copy/
+# Database dumps
+*.sql
+
+# Images (all common formats)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.bmp
+*.ico
+*.svg
+*.tif
+*.tiff
+*.avif
+*.heic
+*.heif
+
+# Uploaded image directories
+assets/images/
+assets/img/
+assets/property_images/
+assets/property_videos/
+assets/property_files/
+# PHP / server logs
+error_log
+*.log
+
+# Environment & secrets
+.env
+.env.*
+
+# OS & editor
+.DS_Store
+Thumbs.db
+desktop.ini

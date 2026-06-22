@@ -1,0 +1,133 @@
+/* Reloc8UK property portal — horizontal top navigation */
+:root {
+  --portal-nav-bg: #1e293b;
+  --portal-nav-bg-hover: #334155;
+  --portal-nav-accent: #10b981;
+  --portal-nav-accent-hover: #059669;
+  --portal-nav-text: #ffffff;
+  --portal-nav-muted: rgba(255, 255, 255, 0.75);
+}
+
+.portal-navbar {
+  background-color: var(--portal-nav-bg) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+  padding: 0.5rem 0;
+  position: relative;
+  z-index: 1030;
+}
+
+.portal-navbar .navbar-collapse {
+  overflow: visible;
+}
+
+@media (min-width: 992px) {
+  .portal-navbar.navbar-expand-lg .navbar-nav .dropdown {
+    position: static;
+  }
+}
+
+.portal-navbar-inner {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.portal-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--portal-nav-text) !important;
+  font-weight: 600;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.portal-navbar-brand:hover {
+  color: var(--portal-nav-text) !important;
+  opacity: 0.92;
+}
+
+.portal-navbar-logo {
+  max-height: 36px;
+  width: auto;
+}
+
+.portal-navbar-title {
+  font-family: "Crimson Text", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.portal-navbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.portal-navbar .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.portal-navbar-nav .nav-link {
+  color: var(--portal-nav-muted) !important;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  padding: 0.625rem 1rem !important;
+  border-radius: 8px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.portal-navbar-nav .nav-link:hover,
+.portal-navbar-nav .nav-link:focus {
+  color: var(--portal-nav-text) !important;
+  background-color: rgba(16, 185, 129, 0.12);
+}
+
+.portal-navbar-nav .nav-link.active {
+  color: var(--portal-nav-text) !important;
+  background-color: var(--portal-nav-accent);
+}
+
+.portal-navbar-nav .nav-link.active:hover {
+  background-color: var(--portal-nav-accent-hover);
+}
+
+.portal-navbar .dropdown-menu {
+  border: 1px solid rgba(30, 41, 59, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  z-index: 1050;
+}
+
+.portal-navbar .dropdown-menu.show {
+  display: block;
+}
+
+.portal-navbar .dropdown-item {
+  font-size: 0.9375rem;
+  padding: 0.5rem 1.25rem;
+  color: #1e293b;
+}
+
+.portal-navbar .dropdown-item:hover,
+.portal-navbar .dropdown-item:focus {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #1e293b;
+}
+
+.portal-navbar .dropdown-divider {
+  border-top-color: rgba(30, 41, 59, 0.1);
+}
+
+@media (max-width: 991.98px) {
+  .portal-navbar-nav {
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .portal-navbar-nav .nav-link {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}

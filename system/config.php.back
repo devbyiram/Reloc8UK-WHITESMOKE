@@ -1,0 +1,13 @@
+<?php
+date_default_timezone_set("Europe/London");
+// Require functions.php
+require('functions.php');
+
+// App Configuration
+
+// Database Credentials
+define('MYSQL_HOST', 'shareddb-x.hosting.stackcp.net');
+define('MYSQL_USER', 'relocukc_portal');
+define('MYSQL_DB', 'relocukc_portal');
+define('MYSQL_PASS', 'd0ZE3[9H#rTs');
+

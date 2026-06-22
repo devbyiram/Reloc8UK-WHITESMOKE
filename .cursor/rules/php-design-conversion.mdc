@@ -1,0 +1,106 @@
+---
+description: Convert PHP project design from relock8uk Laravel reference while preserving 100% of existing PHP logic
+globs: ["**/*.php"]
+alwaysApply: true
+---
+
+# PHP Design Conversion Rule — Zero Logic Change, Mandatory Diff Check
+
+This rule governs ANY edit made to a `.php` file in this project when the task involves
+applying/copying design (HTML, CSS, JS, markup, assets) from the Laravel reference project
+`relock8uk` (views in `relock8uk/resources/views`, assets in `relock8uk/public`).
+
+This rule is ALWAYS ACTIVE for `.php` files. It applies whether or not the user explicitly
+mentions "design conversion" in their message — if you are editing a `.php` file's markup,
+these rules apply automatically.
+
+## Core Principle
+
+You are changing how a page LOOKS, never how it WORKS. Every `<?php ... ?>` block, every
+variable, every function call, every conditional, every loop, every form action, every
+include/require for logic purposes must produce IDENTICAL runtime behavior before and after
+your edit. Only HTML structure, CSS, JS, and asset references may change.
+
+## Mandatory Workflow — Cannot Be Skipped
+
+For every `.php` file you touch:
+
+1. **Before editing**: Read and retain the full original content of the file exactly as it
+   exists on disk right now. This is your baseline for comparison. Do not paraphrase or
+   summarize it internally — treat it as the literal ground truth to diff against later.
+
+2. **Make the design change**: Apply the new HTML/CSS/markup from the corresponding
+   `relock8uk` Blade view. Carry over every existing `<?php ... ?>` block, echoed variable,
+   form, and logic structure into its equivalent position in the new markup. If the file is
+   being split into partials (`header.php`, `footer.php`, `sidebar.php`, etc.), only extract
+   markup that is purely structural/repeated — never split apart a PHP logic block in a way
+   that changes when or how it executes.
+
+3. **After editing — MANDATORY comparison step (do not skip, do not batch, do not defer)**:
+   Compare the PHP logic in the new file against the original baseline from step 1. Explicitly
+   check and report on each of these:
+   - Every `<?php ... ?>` / `<?= ... ?>` block: present, unchanged, same order
+   - Every variable name and value source: unchanged
+   - Every function/method call: same name, same arguments, same order
+   - Every conditional (`if`/`else`/`elseif`/`switch`/ternary): same structure, same condition
+   - Every loop (`for`/`foreach`/`while`): same structure, same iteration logic
+   - Every `include`/`require`/`require_once`/`include_once`: same target files and same
+     logic-relevant purpose (structural re-organization into header/footer/sidebar is allowed,
+     but the included logic itself must be unchanged)
+   - Form `action`, `method`, `name` attributes tied to PHP processing: unchanged
+   - Any session, cookie, header(), redirect, or auth-related calls: unchanged
+   - Whitespace/formatting INSIDE PHP blocks: note if changed, even if functionally harmless
+
+4. **Report the diff result explicitly**, in this format, before doing anything else:
+
+   ```
+   FILE: [old path] → [new path, if moved/renamed]
+   PHP LOGIC DIFF: [PASS — no changes detected] OR [FLAGGED — see below]
+
+   If FLAGGED, list each specific difference found, with the exact before/after snippet.
+   ```
+
+5. **If even ONE unintended PHP-related difference is found** (including trivial things like
+   whitespace inside a PHP tag, a reordered argument, a renamed variable, an extra blank line
+   inside a `<?php ?>` block that wasn't there before) — STOP. Do not auto-fix it. Do not
+   proceed to the next file. Present the flagged difference(s) to the user and wait for explicit
+   confirmation on how to proceed before continuing.
+
+6. **Only after the user confirms** (either the diff was clean, or they've approved how to
+   handle a flagged difference) may you move to the next file.
+
+## Hard Restrictions
+
+- Never modify PHP logic to "improve," "optimize," "clean up," "fix," or "modernize" it. If you
+  notice a bug, inefficiency, or bad practice in the existing PHP, do NOT touch it — mention it
+  to the user as an observation only, separate from the design conversion work.
+- Never touch files that are purely backend/logic (e.g. `config.php`, `db.php`, `functions.php`,
+  classes, models) unless the only change needed is adding/adjusting an `include`/`require`
+  statement to wire in a new header/footer/sidebar partial.
+- Never introduce new architecture, autoloading, namespacing, templating engines, or MVC
+  structure. Plain `include`/`require` only.
+- Never rename existing PHP variables or functions, even if the new design's naming conventions
+  suggest different names. Keep all PHP-side names exactly as they are.
+- Never assume a "harmless" PHP change is fine to slip through silently — whitespace inside PHP
+  tags, reordered array keys, changed quote styles (`'` vs `"`) in PHP strings, etc. all count
+  as changes that must be flagged, not auto-applied.
+- One file at a time. Do not convert multiple `.php` files in a single uninterrupted pass.
+
+## What IS Allowed to Change Freely
+
+- HTML tags, structure, attributes (class, id, data-*, etc.) outside of PHP logic
+- CSS files, inline styles, `<style>` blocks
+- JS files, inline scripts, `<script>` blocks (unless that JS is server-rendered with PHP
+  variables — in that case, the PHP variable injection itself must remain unchanged)
+- Asset paths (image src, CSS/JS links) when updated to point to newly copied assets from
+  `relock8uk/public`
+- File organization: extracting shared markup into `header.php`, `footer.php`, `sidebar.php`,
+  `nav.php`, and wiring them up via `include`/`require` in each page
+
+## Per-File Output Checklist
+
+Every time you finish a file, your response to the user must include:
+1. File path (old → new if renamed/moved)
+2. Plain-language summary of the design change made
+3. The PHP LOGIC DIFF report (PASS or FLAGGED, per the format above)
+4. A clear statement that you are pausing for review/approval before continuing
