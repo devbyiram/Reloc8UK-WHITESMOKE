@@ -315,6 +315,60 @@
 	font-size: 0.8125rem !important;
 }
 
+.admin-crm-page .admin-crm-date-range .admin-crm-control {
+	min-height: 2.5rem;
+}
+
+.admin-crm-page .admin-crm-date-range__divider {
+	background: #f8fafc;
+	border-color: var(--crm-border);
+	color: var(--crm-muted);
+	font-size: 0.75rem !important;
+	font-weight: 600 !important;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding-inline: 0.75rem;
+}
+
+.admin-crm-page .admin-crm-export-row {
+	display: flex;
+	justify-content: center;
+	padding-top: 0.25rem;
+}
+
+.admin-crm-page .admin-crm-export-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0.5rem 0.85rem;
+	border: 1px solid #eef1f5;
+	border-radius: 8px;
+	background: #fafbfc;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+	color: var(--crm-heading);
+	cursor: pointer;
+	transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.admin-crm-page .admin-crm-export-label:hover {
+	border-color: rgba(16, 185, 129, 0.35);
+	background: rgba(16, 185, 129, 0.04);
+}
+
+.admin-crm-page .admin-crm-export-label input[type="checkbox"] {
+	width: 1rem;
+	height: 1rem;
+	margin: 0;
+	accent-color: var(--crm-accent);
+}
+
+.admin-crm-page .admin-crm-table-wrap .table-responsive {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
 @media (max-width: 767px) {
 	.admin-crm-page .admin-crm-toolbar {
 		flex-direction: column;
