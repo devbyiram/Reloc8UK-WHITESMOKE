@@ -14,13 +14,27 @@ if($_SESSION['user_type'] == 3){
 	header('Location: properties.php');
 }
 $page = "home";
-$portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/slick.css"/>
-<link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css"/>
-<link rel="stylesheet" type="text/css" href="assets/css/styles.css?ver='.time().'">
+$portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/styles.css?ver='.time().'">
 <link rel="stylesheet" type="text/css" href="assets/css/property-listing.css?ver='.time().'">
-<link rel="stylesheet" type="text/css" href="assets/css/property-card.css?ver='.time().'">';
+<link rel="stylesheet" type="text/css" href="assets/css/property-card.css?ver='.time().'">
+<link rel="stylesheet" type="text/css" href="assets/css/property-card-rightmove.css?ver='.time().'">'.(($_SESSION['user_type'] == "2") ? '
+<link rel="stylesheet" type="text/css" href="assets/css/admin-dashboard.css?ver='.time().'">' : '');
 include_once("views/header.php");
 ?>
+		<?php if($_SESSION['user_type'] == "2") { ?>
+		<div class="dashboard-welcome dashboard-welcome--portal mb-4">
+			<div class="dashboard-welcome__inner">
+				<div class="dashboard-welcome__icon" aria-hidden="true">
+					<span class="iconify" data-icon="mdi:home-city-outline"></span>
+				</div>
+				<div class="dashboard-welcome__content">
+					<h4 class="dashboard-welcome__title">Welcome to the Reloc8UK Property Portal, <span class="dashboard-welcome__name"><?php echo $_SESSION['user_name']; ?></span></h4>
+					<p class="dashboard-welcome__text">Welcome to the Reloc8UK property portal. This portal has been set up to allow councils, and tenants, to view the current properties available to let and, where applicable, reserve or place a hold on a property.</p>
+					<p class="dashboard-welcome__text">Reloc8UK aim to list all currently available properties, and upcoming properties, on the portal as quickly as possible.</p>
+				</div>
+			</div>
+		</div>
+		<?php } else { ?>
 		<div class="row">
 			<div class="col-12">
 				<div class="card mb-4">
@@ -34,11 +48,16 @@ include_once("views/header.php");
 				</div>
 			</div>
 		</div>
+		<?php } ?>
+		<?php if($_SESSION['user_type'] == "2") {
+			$adminDashboard = getAdminDashboardSummary();
+			include_once('views/partials/admin-dashboard.php');
+		} ?>
 		<div class="row property-listings-section">
 			<div class="col-12">
 				<div class="card property-listings-panel mb-4">
 					<div class="card-body">
-						<div class="property-listings-section-header">
+						<div class="property-listings-section-header property-listings-section-header--compact">
 							<span class="property-listings-section-header__icon">
 								<span class="iconify" data-icon="mdi:home-city-outline"></span>
 							</span>
@@ -46,108 +65,169 @@ include_once("views/header.php");
 								<h6 class="mb-0">Latest Properties</h6>
 								<p class="section-subtitle mb-0">Recently added homes available to view</p>
 							</div>
-							<div class="property-carousel-nav"></div>
 						</div>
-						<div class="property-carousel-wrap">
-						<div class="multiple-items">
+						<div class="row property-listings-grid property-listings-grid-page">
 			<?php
 			$property = getFeaturedProperty();
 			
 			if($property && !is_null($property["id"])){
 				$propertyImages = explode(",",$property['images']);
 			?>
-				<div>
-					<div class="property-card property-card--featured card w-100 h-100">
-						<div class="property-card-image" style="background-image: url('assets/property_images/<?php if($property["images"]){ echo $propertyImages[0]; }else{ echo "property.png"; } ?>');">
-							<div class="property-card-badges">
-							<span class="property-card-badge property-card-badge--featured">Featured</span>
-							<?php if($property['same_day_move'] == "1"){ ?>
-							<span class="property-card-badge property-card-badge--sameday"><span class="iconify" data-icon="mdi:truck-fast-outline"></span> Same day</span>
-							<?php } ?>
+							<div class="col-12 property-listings-grid__item d-flex">
+								<article class="property-card property-card--rightmove card w-100 h-100">
+									<div class="property-card__media">
+										<div class="property-card-carousel">
+											<div class="property-card-carousel__viewport">
+												<div class="property-card-carousel__track">
+												<?php if($property["images"]){ ?>
+													<?php foreach($propertyImages as $imageFile){ ?>
+													<div class="property-card-carousel__slide">
+														<div class="property-card-image" style="background-image: url('./system/thumbs.php?src=assets/property_images/<?php echo $imageFile; ?>&w=400&h=260');"></div>
+													</div>
+													<?php } ?>
+												<?php }else{ ?>
+													<div class="property-card-carousel__slide">
+														<div class="property-card-image" style="background-image: url('./system/thumbs.php?src=assets/property_images/property.png&w=400&h=260');"></div>
+													</div>
+												<?php } ?>
+												</div>
+											</div>
+											<button type="button" class="property-card-carousel__nav property-card-carousel__nav--prev" aria-label="Previous image"><span class="iconify" data-icon="mdi:chevron-left"></span></button>
+											<button type="button" class="property-card-carousel__nav property-card-carousel__nav--next" aria-label="Next image"><span class="iconify" data-icon="mdi:chevron-right"></span></button>
+											<div class="property-card-carousel__badge">
+												<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:floor-plan"></span>
+												<span class="property-card-carousel__badge-sep" aria-hidden="true"></span>
+												<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:camera-outline"></span>
+												<span class="property-card-carousel__count">1/<?php if($property["images"]){ echo count($propertyImages); }else{ echo "1"; } ?></span>
+											</div>
+										</div>
+									</div>
+									<div class="card-body property-card__content d-flex flex-column">
+										<div class="property-card__summary">
+											<div class="property-card-price-row">
+												<div class="property-card-price"><?php if($property['rent_pcm'] == "0.00") { echo "TBA"; }else{ echo "&pound;" . $property['rent_pcm'] . "pcm"; } ?></div>
+												<div class="property-card-tags">
+												<span class="property-card-tag property-card-tag--status property-card-tag--status-available">Featured</span>
+												<?php if($property['same_day_move'] == "1"){ ?>
+												<span class="property-card-tag property-card-tag--sameday"><span class="iconify" data-icon="mdi:truck-fast-outline"></span> Same day</span>
+												<?php } ?>
+												</div>
+											</div>
+											<div class="property-card-address property-card-address--rightmove">
+												<div class="property-card-address-line"><?php echo $property['address1']; ?></div>
+												<div class="property-card-address-postcode"><?php echo $property['postcode']; ?></div>
+											</div>
+											<div class="property-card-keyinfo">
+												<span class="property-card-stat"><span class="iconify" data-icon="mdi:bed-king-outline"></span><?php echo $property['bedrooms']; ?></span>
+												<span class="property-card-keyinfo__sep" aria-hidden="true"></span>
+												<span class="property-card-stat"><span class="iconify" data-icon="mdi:bathtub-outline"></span><?php echo $property['bathrooms']; ?></span>
+											</div>
+										</div>
+										<div class="property-card__footer">
+											<div class="property-card-meta"><span class="iconify" data-icon="mdi:clock-outline"></span>Added <?php echo time_elapsed_string($property['listed']); ?></div>
+											<div class="property-actions d-flex">
+												<a href="view-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--view"><span class="iconify" data-icon="mdi:eye-outline"></span>View</a>
+												<?php if($_SESSION['user_type'] == "2") { ?>
+												<a href="admin-edit-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--edit"><span class="iconify" data-icon="mdi:pencil-outline"></span>Edit</a>
+												<?php } ?>
+											</div>
+										</div>
+									</div>
+								</article>
 							</div>
-							<span class="property-card-badge property-card-badge--rent"><?php if($property['rent_pcm'] == "0.00") { echo "TBA"; }else{ echo "&pound;" . $property['rent_pcm'] . "pcm"; } ?></span>
-						</div>
-						<div class="card-body d-flex flex-column">
-							<div class="property-card-address">
-								<span class="iconify property-card-address__icon" data-icon="mdi:map-marker-outline"></span>
-								<div class="property-card-address__text">
-									<div class="property-card-address-line"><?php echo $property['address1']; ?></div>
-									<div class="property-card-address-postcode"><?php echo $property['postcode']; ?></div>
-								</div>
-							</div>
-							<hr class="property-card-divider">
-							<div class="property-card-stats">
-								<span class="property-card-stat"><span class="iconify" data-icon="mdi:bed-king-outline"></span><?php echo $property['bedrooms']; ?> beds</span>
-								<span class="property-card-stat"><span class="iconify" data-icon="mdi:bathtub-outline"></span><?php echo $property['bathrooms']; ?> baths</span>
-							</div>
-							<hr class="property-card-divider">
-							<div class="property-card-meta"><span class="iconify" data-icon="mdi:clock-outline"></span>Added <?php echo time_elapsed_string($property['listed']); ?></div>
-							<div class="property-actions d-flex">
-								<a href="view-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--view flex-fill"><span class="iconify" data-icon="mdi:eye-outline"></span>View</a>
-								<?php if($_SESSION['user_type'] == "2") { ?>
-								<a href="admin-edit-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--edit flex-fill"><span class="iconify" data-icon="mdi:pencil-outline"></span>Edit</a>
-								<?php } ?>
-							</div>
-						</div>
-					</div>
-				</div>
 			<?php 
 			}
-			$properties = getLatestProperties();
+			$latestCount = ($property && !is_null($property["id"])) ? 3 : 4;
+			$featuredId = ($property && !is_null($property["id"])) ? $property['id'] : null;
+			$properties = getLatestProperties($featuredId ? 8 : 4);
+			$shown = 0;
 			foreach($properties as $property){
+				if($featuredId && $property['id'] == $featuredId){
+					continue;
+				}
+				if($shown >= $latestCount){
+					break;
+				}
+				$shown++;
 				$databasedate = strtotime( $property['listed'] );
 				$mysqldate = date( 'd/m/Y', $databasedate );
 				$images = explode(",",$property["images"]);
 				?>
-				<div>
-					<div class="property-card card w-100 h-100">
-						<div class="property-card-image" style="background-image: url('./system/thumbs.php?src=assets/property_images/<?php if($property["images"]){ echo $images[0]; }else{ echo "property.png"; } ?>&w=250&h=250'">
-							<div class="property-card-badges">
-							<?php if($property['same_day_move'] == "1"){ ?>
-							<span class="property-card-badge property-card-badge--sameday"><span class="iconify" data-icon="mdi:truck-fast-outline"></span> Same day</span>
-							<?php } ?>
-							<?php if($property['status'] == 0){ ?>
-								<span class="property-card-badge property-card-badge--status property-card-badge--status-available">Available</span>
-							<?php }elseif($property['status'] == 1){ ?>
-								<span class="property-card-badge property-card-badge--status property-card-badge--status-reserved">Reserved</span>
-							<?php }elseif($property['status'] == 2){ ?>
-								<span class="property-card-badge property-card-badge--status property-card-badge--status-held">Held</span>
-							<?php }elseif($property['status'] == 3){ ?>
-								<span class="property-card-badge property-card-badge--status property-card-badge--status-offer">Under Offer</span>
-							<?php }elseif($property['status'] == 4){ ?>
-								<span class="property-card-badge property-card-badge--status property-card-badge--status-let">Let</span>
-							<?php } ?>
+							<div class="col-12 property-listings-grid__item d-flex">
+								<article class="property-card property-card--rightmove card w-100 h-100">
+									<div class="property-card__media">
+										<div class="property-card-carousel">
+											<div class="property-card-carousel__viewport">
+												<div class="property-card-carousel__track">
+												<?php if($property["images"]){ ?>
+													<?php foreach($images as $imageFile){ ?>
+													<div class="property-card-carousel__slide">
+														<div class="property-card-image" style="background-image: url('./system/thumbs.php?src=assets/property_images/<?php echo $imageFile; ?>&w=400&h=260');"></div>
+													</div>
+													<?php } ?>
+												<?php }else{ ?>
+													<div class="property-card-carousel__slide">
+														<div class="property-card-image" style="background-image: url('./system/thumbs.php?src=assets/property_images/property.png&w=400&h=260');"></div>
+													</div>
+												<?php } ?>
+												</div>
+											</div>
+											<button type="button" class="property-card-carousel__nav property-card-carousel__nav--prev" aria-label="Previous image"><span class="iconify" data-icon="mdi:chevron-left"></span></button>
+											<button type="button" class="property-card-carousel__nav property-card-carousel__nav--next" aria-label="Next image"><span class="iconify" data-icon="mdi:chevron-right"></span></button>
+											<div class="property-card-carousel__badge">
+												<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:floor-plan"></span>
+												<span class="property-card-carousel__badge-sep" aria-hidden="true"></span>
+												<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:camera-outline"></span>
+												<span class="property-card-carousel__count">1/<?php if($property["images"]){ echo count($images); }else{ echo "1"; } ?></span>
+											</div>
+										</div>
+									</div>
+									<div class="card-body property-card__content d-flex flex-column">
+										<div class="property-card__summary">
+											<div class="property-card-price-row">
+												<div class="property-card-price">&pound;<?php echo $property['rent_pcm']; ?></div>
+												<div class="property-card-tags">
+												<?php if($property['same_day_move'] == "1"){ ?>
+												<span class="property-card-tag property-card-tag--sameday"><span class="iconify" data-icon="mdi:truck-fast-outline"></span> Same day</span>
+												<?php } ?>
+												<?php if($property['status'] == 0){ ?>
+													<span class="property-card-tag property-card-tag--status property-card-tag--status-available">Available</span>
+												<?php }elseif($property['status'] == 1){ ?>
+													<span class="property-card-tag property-card-tag--status property-card-tag--status-reserved">Reserved</span>
+												<?php }elseif($property['status'] == 2){ ?>
+													<span class="property-card-tag property-card-tag--status property-card-tag--status-held">Held</span>
+												<?php }elseif($property['status'] == 3){ ?>
+													<span class="property-card-tag property-card-tag--status property-card-tag--status-offer">Under Offer</span>
+												<?php }elseif($property['status'] == 4){ ?>
+													<span class="property-card-tag property-card-tag--status property-card-tag--status-let">Let</span>
+												<?php } ?>
+												</div>
+											</div>
+											<div class="property-card-address property-card-address--rightmove">
+												<div class="property-card-address-line"><?php echo $property['address1']; ?></div>
+												<div class="property-card-address-postcode"><?php echo $property['postcode']; ?></div>
+											</div>
+											<div class="property-card-keyinfo">
+												<span class="property-card-stat"><span class="iconify" data-icon="mdi:bed-king-outline"></span><?php echo $property['bedrooms']; ?></span>
+												<span class="property-card-keyinfo__sep" aria-hidden="true"></span>
+												<span class="property-card-stat"><span class="iconify" data-icon="mdi:bathtub-outline"></span><?php echo $property['bathrooms']; ?></span>
+											</div>
+										</div>
+										<div class="property-card__footer">
+											<div class="property-card-meta"><span class="iconify" data-icon="mdi:clock-outline"></span>Added <?php echo time_elapsed_string($property['listed']); ?></div>
+											<div class="property-actions d-flex">
+												<a href="view-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--view"><span class="iconify" data-icon="mdi:eye-outline"></span>View</a>
+												<?php if($_SESSION['user_type'] == "2") { ?>
+												<a href="admin-edit-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--edit"><span class="iconify" data-icon="mdi:pencil-outline"></span>Edit</a>
+												<?php } ?>
+											</div>
+										</div>
+									</div>
+								</article>
 							</div>
-							<span class="property-card-badge property-card-badge--rent">&pound;<?php echo $property['rent_pcm']; ?></span>
-						</div>
-						<div class="card-body d-flex flex-column">
-							<div class="property-card-address">
-								<span class="iconify property-card-address__icon" data-icon="mdi:map-marker-outline"></span>
-								<div class="property-card-address__text">
-									<div class="property-card-address-line"><?php echo $property['address1']; ?></div>
-									<div class="property-card-address-postcode"><?php echo $property['postcode']; ?></div>
-								</div>
-							</div>
-							<hr class="property-card-divider">
-							<div class="property-card-stats">
-								<span class="property-card-stat"><span class="iconify" data-icon="mdi:bed-king-outline"></span><?php echo $property['bedrooms']; ?> beds</span>
-								<span class="property-card-stat"><span class="iconify" data-icon="mdi:bathtub-outline"></span><?php echo $property['bathrooms']; ?> baths</span>
-							</div>
-							<hr class="property-card-divider">
-							<div class="property-card-meta"><span class="iconify" data-icon="mdi:clock-outline"></span>Added <?php echo time_elapsed_string($property['listed']); ?></div>
-							<div class="property-actions d-flex">
-								<a href="view-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--view flex-fill"><span class="iconify" data-icon="mdi:eye-outline"></span>View</a>
-								<?php if($_SESSION['user_type'] == "2") { ?>
-								<a href="admin-edit-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--edit flex-fill"><span class="iconify" data-icon="mdi:pencil-outline"></span>Edit</a>
-								<?php } ?>
-							</div>
-						</div>
-					</div>
-				</div>
 				<?php
 			}
 			?>
-						</div>
 						</div>
 						<div class="property-listings-view-all-wrap">
 							<a href="properties.php" class="btn btn-lg property-listings-view-all">View All Properties<span class="iconify" data-icon="mdi:arrow-right"></span></a>
@@ -157,63 +237,8 @@ include_once("views/header.php");
 			</div>
 		</div>
 <?php
+$portal_extra_scripts = '<script type="text/javascript" src="assets/js/property-card-carousel.js?ver='.time().'"></script>';
 include_once("views/footer.php");
 ?>
-<script type="text/javascript" src="assets/js/slick.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	var $propertyCarousel = $('.multiple-items');
-	var $carouselWrap = $('.property-carousel-wrap');
-	var $carouselNav = $('.property-carousel-nav');
-
-	$propertyCarousel.slick({
-	  dots: true,
-	  appendDots: $carouselWrap,
-	  appendArrows: $carouselNav,
-	  infinite: false,
-	  speed: 300,
-	  slidesToShow: 4,
-	  slidesToScroll: 4,
-	  arrows: true,
-	  prevArrow: '<button type="button" class="slick-prev property-carousel-arrow" aria-label="Previous properties"><span class="iconify" data-icon="mdi:chevron-left"></span></button>',
-	  nextArrow: '<button type="button" class="slick-next property-carousel-arrow" aria-label="Next properties"><span class="iconify" data-icon="mdi:chevron-right"></span></button>',
-	  responsive: [
-		{
-		  breakpoint: 1024,
-		  settings: {
-			slidesToShow: 3,
-			slidesToScroll: 3,
-			infinite: true,
-			dots: true,
-			arrows: true
-		  }
-		},
-		{
-		  breakpoint: 600,
-		  settings: {
-			slidesToShow: 2,
-			slidesToScroll: 2,
-			arrows: true
-		  }
-		},
-		{
-		  breakpoint: 480,
-		  settings: {
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			arrows: true
-		  }
-		}
-	  ]
-	});
-
-	$propertyCarousel.on('init reInit afterChange', function() {
-		if (window.Iconify && typeof Iconify.scan === 'function') {
-			Iconify.scan($carouselWrap[0]);
-			Iconify.scan($carouselNav[0]);
-		}
-	});
-});
-</script>
 </body>
 </html>

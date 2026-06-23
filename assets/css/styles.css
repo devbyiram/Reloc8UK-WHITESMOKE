@@ -1,19 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:200&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Assistant:200&display=swap');
 
-p {
+/* Legacy Bootstrap 4 pages only — Sneat portal pages use .layout-wrapper and Public Sans */
+body:not(:has(.layout-wrapper)) p {
 	font-family: 'Assistant' !important;
 }
 
-p,a,span,div, .card h6, h6 {
+body:not(:has(.layout-wrapper)) p,
+body:not(:has(.layout-wrapper)) a,
+body:not(:has(.layout-wrapper)) span,
+body:not(:has(.layout-wrapper)) div,
+body:not(:has(.layout-wrapper)) .card h6,
+body:not(:has(.layout-wrapper)) h6 {
 	font-size: 1.1rem !important;
 	font-weight: 200 !important;
 }
-p.lead {
+body:not(:has(.layout-wrapper)) p.lead {
 	font-size: 1.3rem !important;
 }
 
-.nav-link {
+body:not(:has(.layout-wrapper)) .nav-link {
 	font-family: 'Work Sans' !important;
 	font-size: 1.4rem !important;
 }

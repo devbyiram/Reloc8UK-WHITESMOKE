@@ -1,0 +1,452 @@
+/* Shared admin DataTables pages (properties, users, bids) */
+
+.admin-table-page {
+	color: #0f172a;
+}
+
+.admin-table-panel {
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+	overflow: hidden;
+	background: #fff;
+}
+
+.admin-table-panel__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+	padding: 1rem 1.25rem;
+	background: #fff;
+	border-bottom: 1px solid #eef2f6;
+}
+
+.admin-table-panel__heading {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	min-width: 0;
+	flex: 1 1 auto;
+}
+
+.admin-table-panel__heading > .iconify {
+	font-size: 1.5rem;
+	color: var(--r8-accent, #10b981);
+	flex-shrink: 0;
+}
+
+.admin-table-panel__heading h5 {
+	font-size: 1rem !important;
+	font-weight: 600 !important;
+	color: #0f172a;
+}
+
+.admin-table-panel__subtitle {
+	font-size: 0.8125rem !important;
+	color: #64748b;
+	margin-top: 0.15rem;
+}
+
+.admin-table-panel__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	flex-shrink: 0;
+}
+
+.admin-table-btn {
+	border-radius: 8px !important;
+	font-size: 0.8125rem !important;
+	font-weight: 600 !important;
+	padding: 0.45rem 0.875rem;
+	line-height: 1.2;
+	box-shadow: none;
+}
+
+.admin-table-btn--primary {
+	background: var(--r8-accent, #10b981) !important;
+	border-color: var(--r8-accent, #10b981) !important;
+	color: #fff !important;
+}
+
+.admin-table-btn--primary:hover {
+	background: var(--r8-accent-hover, #059669) !important;
+	border-color: var(--r8-accent-hover, #059669) !important;
+	color: #fff !important;
+}
+
+.admin-table-btn--outline {
+	background: #fff !important;
+	border: 1px solid #e2e8f0 !important;
+	color: #334155 !important;
+}
+
+.admin-table-btn--outline:hover {
+	background: #f8fafc !important;
+	border-color: #cbd5e1 !important;
+	color: #0f172a !important;
+}
+
+.admin-table-panel > .card-body {
+	padding: 1.25rem;
+}
+
+.admin-table-wrap {
+	border: none;
+	border-radius: 0;
+	padding: 0;
+	background: transparent;
+}
+
+.admin-table-page .dataTables_wrapper {
+	font-size: 0.875rem;
+	color: #334155;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_length,
+.admin-table-page .dataTables_wrapper .dataTables_filter {
+	margin-bottom: 0.875rem;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_length label,
+.admin-table-page .dataTables_wrapper .dataTables_filter label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.8125rem !important;
+	font-weight: 500;
+	color: #64748b;
+	margin-bottom: 0;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_filter input {
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	padding: 0.45rem 0.75rem;
+	font-size: 0.875rem;
+	min-width: 14rem;
+	background: #fff;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_filter input:focus {
+	border-color: rgba(16, 185, 129, 0.45);
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes,
+.admin-table-page .userResultsAdmin div.dt-searchPanes,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: stretch;
+	height: auto;
+	margin-top: 0.75rem;
+	margin-bottom: 1.25rem;
+	gap: 0.875rem;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane {
+	flex: 1 1 50%;
+	max-width: calc(50% - 0.4375rem);
+	margin: 0;
+	border: 1px solid #e2e8f0;
+	border-radius: 10px;
+	overflow: hidden;
+	position: relative;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.title,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.title,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.title {
+	background: #f8fafc;
+	border-bottom: 1px solid #e2e8f0;
+	font-size: 0.6875rem !important;
+	font-weight: 600 !important;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #64748b;
+	padding: 0.625rem 0.875rem;
+	height: auto;
+	line-height: 1.2;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller {
+	position: static;
+	overflow-y: auto;
+	max-height: 8rem;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul {
+	margin: 0;
+	padding: 0.25rem 0;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul li,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul li,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding: 0.5rem 0.875rem;
+	font-size: 0.8125rem;
+	color: #334155;
+	cursor: pointer;
+	transition: background-color 0.15s ease;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul li:nth-child(odd),
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul li:nth-child(odd),
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul li:nth-child(odd) {
+	background: #fafafa;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul li:hover,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul li:hover,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul li:hover {
+	background: #f1f5f9;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul li span.label,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul li span.label,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul li span.label {
+	flex: 1 1 auto;
+	width: auto !important;
+	padding: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul li span.count,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul li span.count,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul li span.count {
+	flex: 0 0 auto;
+	width: auto !important;
+	min-width: 1.625rem;
+	margin: 0;
+	padding: 0.125rem 0.45rem;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	line-height: 1.3;
+	text-align: center;
+	color: #64748b;
+	background: #eef2f6;
+	border-radius: 999px;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected {
+	background: rgba(16, 185, 129, 0.1) !important;
+	color: #047857;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected span.label,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected span.label,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected span.label {
+	font-weight: 600;
+}
+
+.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected span.count,
+.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected span.count,
+.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane div.scroller ul li.selected span.count {
+	background: var(--r8-accent, #10b981);
+	color: #fff;
+}
+
+@media (max-width: 767px) {
+	.admin-table-page .propertyResultsAdmin div.dt-searchPanes,
+	.admin-table-page .userResultsAdmin div.dt-searchPanes,
+	.admin-table-page .bidResultsAdmin div.dt-searchPanes {
+		flex-direction: column;
+	}
+
+	.admin-table-page .propertyResultsAdmin div.dt-searchPanes div.pane,
+	.admin-table-page .userResultsAdmin div.dt-searchPanes div.pane,
+	.admin-table-page .bidResultsAdmin div.dt-searchPanes div.pane {
+		max-width: 100%;
+	}
+}
+
+.admin-table-page table.dataTable.admin-table {
+	width: 100% !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	border-collapse: separate !important;
+	border-spacing: 0;
+}
+
+.admin-table-page table.dataTable.admin-table thead th {
+	background: #f8fafc;
+	border-bottom: 1px solid #e2e8f0 !important;
+	color: #475569;
+	font-size: 0.75rem !important;
+	font-weight: 600 !important;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 0.875rem 1rem !important;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.admin-table-page table.dataTable.admin-table tbody td {
+	padding: 0.875rem 1rem !important;
+	vertical-align: middle;
+	border-top: 1px solid #eef2f6 !important;
+	color: #334155;
+	background: #fff;
+}
+
+.admin-table-page table.dataTable.admin-table tbody tr:hover td {
+	background: #fafafa;
+}
+
+.admin-table-page table.dataTable.admin-table tbody tr.bg-warning td {
+	background: #fef3c7;
+}
+
+.admin-table-page table.dataTable.admin-table tbody tr.bg-warning td:nth-child(3) {
+	font-style: italic;
+	color: #92400e;
+	font-weight: 600;
+}
+
+.admin-table-page table.dataTable.admin-table tbody tr.bg-warning:hover td {
+	background: #fde68a;
+}
+
+.admin-table-page table.dataTable.admin-table tbody td a:not(.btn) {
+	color: var(--r8-accent, #10b981);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.admin-table-page table.dataTable.admin-table tbody td a:not(.btn):hover {
+	color: var(--r8-accent-hover, #059669);
+	text-decoration: underline;
+}
+
+.admin-table-page table.dataTable.admin-table .btn-group {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 0.375rem;
+}
+
+.admin-table-page table.dataTable.admin-table .btn-group .btn {
+	border-radius: 8px !important;
+	font-size: 0.75rem !important;
+	font-weight: 600 !important;
+	padding: 0.375rem 0.75rem;
+	line-height: 1.2;
+	box-shadow: none !important;
+	text-decoration: none !important;
+}
+
+.admin-table-page table.dataTable.admin-table .btn-group .btn:hover,
+.admin-table-page table.dataTable.admin-table .btn-group .btn:focus {
+	text-decoration: none !important;
+}
+
+/* View — emerald outline */
+.admin-table-page table.dataTable.admin-table .btn-group .btn-warning {
+	background: #fff !important;
+	border: 1px solid var(--r8-accent, #10b981) !important;
+	color: var(--r8-accent, #10b981) !important;
+}
+
+.admin-table-page table.dataTable.admin-table .btn-group .btn-warning:hover {
+	background: rgba(16, 185, 129, 0.08) !important;
+	border-color: var(--r8-accent-hover, #059669) !important;
+	color: var(--r8-accent-hover, #059669) !important;
+}
+
+/* Edit / Approve — emerald solid */
+.admin-table-page table.dataTable.admin-table .btn-group .btn-primary {
+	background: var(--r8-accent, #10b981) !important;
+	border: 1px solid var(--r8-accent, #10b981) !important;
+	color: #fff !important;
+}
+
+.admin-table-page table.dataTable.admin-table .btn-group .btn-primary:hover {
+	background: var(--r8-accent-hover, #059669) !important;
+	border-color: var(--r8-accent-hover, #059669) !important;
+	color: #fff !important;
+}
+
+/* Delete / Reject — neutral, red on hover */
+.admin-table-page table.dataTable.admin-table .btn-group .btn-danger {
+	background: #fff !important;
+	border: 1px solid #e2e8f0 !important;
+	color: #64748b !important;
+}
+
+.admin-table-page table.dataTable.admin-table .btn-group .btn-danger:hover {
+	background: #fef2f2 !important;
+	border-color: #fca5a5 !important;
+	color: #dc2626 !important;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_info {
+	padding-top: 0.875rem;
+	font-size: 0.8125rem;
+	color: #64748b;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_paginate {
+	padding-top: 0.875rem;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_paginate .paginate_button {
+	border-radius: 8px !important;
+	padding: 0.35rem 0.75rem !important;
+	margin: 0 0.125rem !important;
+	border: 1px solid #e2e8f0 !important;
+	background: #fff !important;
+	color: #334155 !important;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.admin-table-page .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+	background: var(--r8-accent, #10b981) !important;
+	border-color: var(--r8-accent, #10b981) !important;
+	color: #fff !important;
+}
+
+.admin-table-page .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+	background: rgba(16, 185, 129, 0.08) !important;
+	border-color: rgba(16, 185, 129, 0.35) !important;
+	color: var(--r8-accent, #10b981) !important;
+}
+
+.admin-table-page table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,
+.admin-table-page table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+	background-color: var(--r8-accent, #10b981);
+	box-shadow: none;
+	border: none;
+}
+
+@media (max-width: 767px) {
+	.admin-table-panel__header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.admin-table-panel > .card-body {
+		padding: 1rem;
+	}
+}

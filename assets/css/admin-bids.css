@@ -279,13 +279,13 @@
 	background: #fafafa;
 }
 
-.admin-bids-page table.dataTable.admin-bids-table tbody td a {
+.admin-bids-page table.dataTable.admin-bids-table tbody td a:not(.btn) {
 	color: var(--r8-accent, #10b981);
 	font-weight: 600;
 	text-decoration: none;
 }
 
-.admin-bids-page table.dataTable.admin-bids-table tbody td a:hover {
+.admin-bids-page table.dataTable.admin-bids-table tbody td a:not(.btn):hover {
 	color: var(--r8-accent-hover, #059669);
 	text-decoration: underline;
 }
@@ -308,30 +308,39 @@
 	font-weight: 600 !important;
 	padding: 0.375rem 0.75rem;
 	line-height: 1.2;
-	box-shadow: none;
+	box-shadow: none !important;
+	text-decoration: none !important;
 }
 
+.admin-bids-page table.dataTable.admin-bids-table .btn-group .btn:hover,
+.admin-bids-page table.dataTable.admin-bids-table .btn-group .btn:focus {
+	text-decoration: none !important;
+}
+
+/* Approve / Revoke — emerald solid */
 .admin-bids-page table.dataTable.admin-bids-table .btn-group .btn-primary {
 	background: var(--r8-accent, #10b981) !important;
-	border-color: var(--r8-accent, #10b981) !important;
+	border: 1px solid var(--r8-accent, #10b981) !important;
 	color: #fff !important;
 }
 
 .admin-bids-page table.dataTable.admin-bids-table .btn-group .btn-primary:hover {
 	background: var(--r8-accent-hover, #059669) !important;
 	border-color: var(--r8-accent-hover, #059669) !important;
+	color: #fff !important;
 }
 
+/* Reject — neutral, red on hover */
 .admin-bids-page table.dataTable.admin-bids-table .btn-group .btn-danger {
 	background: #fff !important;
-	border: 1px solid #fecaca !important;
-	color: #dc2626 !important;
+	border: 1px solid #e2e8f0 !important;
+	color: #64748b !important;
 }
 
 .admin-bids-page table.dataTable.admin-bids-table .btn-group .btn-danger:hover {
 	background: #fef2f2 !important;
 	border-color: #fca5a5 !important;
-	color: #b91c1c !important;
+	color: #dc2626 !important;
 }
 
 .admin-bids-page .dataTables_wrapper .dataTables_info {

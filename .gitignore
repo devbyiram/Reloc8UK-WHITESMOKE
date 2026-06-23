@@ -1,6 +1,7 @@
 # Laravel reference project (local only)
 Reloc8uk/
 freelanceproject_copy/
+project/
 # Database dumps
 *.sql
 

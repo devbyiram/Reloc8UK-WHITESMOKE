@@ -6,9 +6,10 @@ date_default_timezone_set("Europe/London");
 // Database Credentials
 define('MYSQL_HOST', 'localhost');
 define('MYSQL_USER', 'root');
-define('MYSQL_DB', 'whitesmoke');
-define('MYSQL_PASS', '');
+define('MYSQL_DB', 'freelanceproject');
+define('MYSQL_PASS', 'root');
 
 require('connect.php');
 require('functions.php');
 require('propertyfunctions.php');
+require('dashboardfunctions.php');

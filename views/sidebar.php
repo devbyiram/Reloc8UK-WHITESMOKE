@@ -1,8 +1,9 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 	<div class="app-brand demo">
 		<a href="index.php" class="app-brand-link">
-			<img src="assets/img/Reloc8Logo.jpg" alt="Reloc8UK" class="app-brand-logo"
-				style="max-height: 35px; width: auto;">
+			<span class="app-brand-wordmark" aria-label="Reloc8UK">
+				<span class="app-brand-wordmark__reloc">Reloc8</span><span class="app-brand-wordmark__uk">UK</span>
+			</span>
 		</a>
 		<a href="javascript:void(0);"
 			class="layout-menu-toggle menu-link text-large d-block d-xl-none ms-auto">
@@ -47,7 +48,7 @@
 			</a>
 		</li>
 		<?php if($_SESSION['user_type'] == "2") { ?>
-		<li class="menu-item <?php if($page == "admin" || $page == "reports"){ echo "active open"; } ?>">
+		<li class="menu-item <?php if($page == "admin" || $page == "admin-users" || $page == "admin-bids" || $page == "reports"){ echo "active open"; } ?>">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icon iconify iconify-lg" data-icon="bx:bx-cog"></i>
 				<div data-i18n="Admin">Admin</div>
@@ -58,12 +59,12 @@
 						<div data-i18n="Properties">Properties</div>
 					</a>
 				</li>
-				<li class="menu-item">
+				<li class="menu-item <?php if($page == "admin-users"){ echo "active"; } ?>">
 					<a href="admin-users.php" class="menu-link">
 						<div data-i18n="Users">Users</div>
 					</a>
 				</li>
-				<li class="menu-item">
+				<li class="menu-item <?php if($page == "admin-bids"){ echo "active"; } ?>">
 					<a href="admin-bids.php" class="menu-link">
 						<div data-i18n="Bids">Bids</div>
 					</a>

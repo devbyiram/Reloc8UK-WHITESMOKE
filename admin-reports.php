@@ -8,10 +8,6 @@ if($_POST){
 	$report = generateUserReport($_POST['council'],$_POST['date-from'],$_POST['date-to'],$_POST['date-range-predefined'],$_POST['export_to_csv']);
 }
 
-if(!empty($_GET['share']) && $_GET['share'] == "true"){
-	$portal_hide_navbar = true;
-}
-
 $page_title = "Reports - Reloc8UK Portal";
 $portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/admin-crm-forms.css?ver='.time().'">';
 include_once("views/header.php");
@@ -23,12 +19,6 @@ include_once("views/header.php");
 					<div>
 						<h1 class="admin-crm-page-header__title">Reports</h1>
 						<p class="admin-crm-page-header__subtitle">Generate a report of users registered within a given timeframe for an individual council, or all councils combined.</p>
-						<?php if(!empty($report)){ ?>
-						<span class="admin-crm-page-header__meta">
-							<span class="iconify" data-icon="mdi:account-multiple-outline"></span>
-							<?= count($report); ?> user<?= count($report) === 1 ? '' : 's'; ?> found
-						</span>
-						<?php } ?>
 					</div>
 				</div>
 			</div>
