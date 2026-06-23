@@ -273,7 +273,7 @@ function deletePropertyBids($pid){
 	}
 }
 
-function getPropertyFiles($pid){
+function getPropertyFiles($pid, $excludeFiletypes = array()){
 	
 	global $pdo;
 	
@@ -285,6 +285,9 @@ function getPropertyFiles($pid){
 	
 	if($results = $stmt->fetchAll(PDO::FETCH_ASSOC)){
 		foreach($results as $result){
+			if(!empty($excludeFiletypes) && in_array($result['filetype'], $excludeFiletypes)){
+				continue;
+			}
 			$output = '<div class="col text-center">';
 			$output .= '<a href="/assets/property_files/'.$result['filename'].'" target="_blank">';
 			switch ($result['filetype']){
@@ -312,6 +315,64 @@ function getPropertyFiles($pid){
 			echo $output;
 		}
 	}
+}
+
+function savePropertyEpc($propertyId, $file){
+	
+	global $pdo;
+	
+	if(empty($file['name']) || $file['error'] !== UPLOAD_ERR_OK){
+		return false;
+	}
+	
+	$file_array = explode(".", $file['name']);
+	$file_extension = strtolower(end($file_array));
+	$allowed_epc_extensions = array('jpg', 'jpeg', 'png', 'svg');
+	
+	if(!in_array($file_extension, $allowed_epc_extensions)){
+		return false;
+	}
+	
+	$base_name = preg_replace('/\s+/', '', pathinfo($file['name'], PATHINFO_FILENAME));
+	$filename = $base_name . '-' . rand() . '.' . $file_extension;
+	$location = 'assets/property_files/' . $filename;
+	
+	$stmt = $pdo->prepare("SELECT epc FROM properties WHERE id = ?");
+	$stmt->execute([$propertyId]);
+	$existing = $stmt->fetchColumn();
+	
+	if(!empty($existing)){
+		$existingPath = 'assets/property_files/' . $existing;
+		if(file_exists($existingPath)){
+			unlink($existingPath);
+		}
+	}
+	
+	if(move_uploaded_file($file['tmp_name'], $location)){
+		$update = $pdo->prepare("UPDATE properties SET epc = ? WHERE id = ?");
+		return $update->execute([$filename, $propertyId]);
+	}
+	
+	return false;
+}
+
+function removePropertyEpc($propertyId){
+	
+	global $pdo;
+	
+	$stmt = $pdo->prepare("SELECT epc FROM properties WHERE id = ?");
+	$stmt->execute([$propertyId]);
+	$existing = $stmt->fetchColumn();
+	
+	if(!empty($existing)){
+		$existingPath = 'assets/property_files/' . $existing;
+		if(file_exists($existingPath)){
+			unlink($existingPath);
+		}
+	}
+	
+	$update = $pdo->prepare("UPDATE properties SET epc = NULL WHERE id = ?");
+	return $update->execute([$propertyId]);
 }
 
 function adminPropertyFiles($pid){

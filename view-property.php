@@ -25,6 +25,7 @@ if(!empty($_GET['share']) && $_GET['share'] == "true"){
 	$portal_hide_navbar = true;
 }
 $portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/property-detail.css?ver='.time().'" />
+<link rel="stylesheet" type="text/css" href="assets/css/property-card-rightmove.css?ver='.time().'">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>';
 include_once("views/header.php");
@@ -81,51 +82,44 @@ include_once("views/header.php");
 			}
 		?>
 		<div class="property-detail-gallery<?php if(count($property_images) <= 1){ echo ' property-detail-gallery--single'; } ?>">
-			<div class="property-detail-gallery__grid">
-				<div class="property-detail-gallery__main">
-					<div class="property-detail-gallery__viewport" id="property-gallery-main">
-						<?php
-						$gallery_index = 0;
-						foreach($property_images as $image){
-							echo '<div class="property-detail-gallery__slide'.($gallery_index === 0 ? ' is-active' : '').'">';
-							echo '<a data-lightbox="gallery" href="assets/property_images/'.$image.'"><img src="assets/property_images/'.$image.'" alt=""></a>';
-							echo '</div>';
-							$gallery_index++;
-						}
-						?>
+			<div class="property-card-carousel property-card--rightmove property-detail-gallery__carousel">
+				<div class="property-card-carousel__sources" aria-hidden="true" hidden>
+					<?php foreach($property_images as $image){ ?>
+					<span class="property-card-carousel__source" data-src="./system/thumbs.php?src=assets/property_images/<?php echo $image; ?>&w=960&h=640" data-full="assets/property_images/<?php echo $image; ?>"></span>
+					<?php } ?>
+				</div>
+				<div class="property-card-carousel__badge">
+					<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:floor-plan"></span>
+					<span class="property-card-carousel__badge-sep" aria-hidden="true"></span>
+					<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:camera-outline"></span>
+					<span class="property-card-carousel__count">1/<?php echo count($property_images); ?></span>
+				</div>
+				<div class="property-card-carousel__layout">
+					<div class="property-card-carousel__pane property-card-carousel__pane--main">
+						<a data-lightbox="property-gallery" href="assets/property_images/<?php echo $property_images[0]; ?>" class="property-detail-gallery__lightbox-link" id="property-main-lightbox">
+							<div class="property-card-image"></div>
+						</a>
+						<button type="button" class="property-card-carousel__nav property-card-carousel__nav--prev" aria-label="Previous image">
+							<span class="iconify" data-icon="mdi:chevron-left" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="property-card-carousel__nav property-card-carousel__nav--next" aria-label="Next image">
+							<span class="iconify" data-icon="mdi:chevron-right" aria-hidden="true"></span>
+						</button>
 					</div>
-					<button type="button" class="property-detail-gallery__arrow property-detail-gallery__arrow--prev" aria-label="Previous photo">
-						<span class="iconify" data-icon="mdi:chevron-left"></span>
-					</button>
-					<button type="button" class="property-detail-gallery__arrow property-detail-gallery__arrow--next" aria-label="Next photo">
-						<span class="iconify" data-icon="mdi:chevron-right"></span>
-					</button>
-					<div class="property-detail-gallery__count">
-						<span class="iconify" data-icon="mdi:floor-plan"></span>
-						<span class="property-detail-gallery__count-divider" aria-hidden="true"></span>
-						<span class="iconify" data-icon="mdi:camera-outline"></span>
-						<span><span id="property-gallery-current">1</span><span class="property-detail-gallery__count-sep">/</span><span id="property-gallery-total"><?php echo count($property_images); ?></span></span>
+					<div class="property-card-carousel__pane property-card-carousel__pane--thumbs">
+						<div class="property-card-carousel__thumb">
+							<div class="property-card-image"></div>
+						</div>
+						<div class="property-card-carousel__thumb">
+							<div class="property-card-image"></div>
+						</div>
 					</div>
 				</div>
-				<div class="property-detail-gallery__aside">
-					<button type="button" class="property-detail-gallery__thumb-arrow property-detail-gallery__thumb-arrow--up" aria-label="Scroll thumbnails up">
-						<span class="iconify" data-icon="mdi:chevron-up"></span>
-					</button>
-					<div class="property-detail-gallery__thumbs" id="property-gallery-thumbs">
-						<?php
-						$thumb_index = 0;
-						foreach($property_images as $image){
-							echo '<button type="button" class="property-detail-gallery__thumb'.($thumb_index === 0 ? ' is-active' : '').'">';
-							echo '<img src="assets/property_images/'.$image.'" alt="">';
-							echo '</button>';
-							$thumb_index++;
-						}
-						?>
-					</div>
-					<button type="button" class="property-detail-gallery__thumb-arrow property-detail-gallery__thumb-arrow--down" aria-label="Scroll thumbnails down">
-						<span class="iconify" data-icon="mdi:chevron-down"></span>
-					</button>
-				</div>
+			</div>
+			<div class="property-detail-gallery__lightbox-items" hidden aria-hidden="true">
+				<?php foreach($property_images as $image){ ?>
+				<a data-lightbox="property-gallery" href="assets/property_images/<?php echo $image; ?>"></a>
+				<?php } ?>
 			</div>
 		</div>
 
@@ -139,8 +133,10 @@ include_once("views/header.php");
 						<div class="property-detail-hero__price-label">Rent PCM</div>
 					</div>
 					<div class="property-detail-hero__main">
-						<h1 class="property-detail-hero__title"><?php echo $property['address1']; ?></h1>
-						<p class="property-detail-hero__postcode"><?php echo $property['postcode']; ?></p>
+						<div class="property-detail-hero__title-row">
+							<h1 class="property-detail-hero__title"><?php echo $property['address1']; ?></h1>
+							<span class="property-detail-hero__postcode"><?php echo $property['postcode']; ?></span>
+						</div>
 						<p class="property-detail-hero__meta">
 							<span class="property-detail-hero__meta-item"><span class="iconify" data-icon="mdi:calendar-outline"></span>Date available: <strong><?php if($property['available_soon'] == null) { echo date("d/m/Y",strtotime($property['date_available']));  } else { echo 'Available Soon'; }  ?></strong></span>
 							<?php if($property['same_day_move'] == 1) { ?>
@@ -176,13 +172,6 @@ include_once("views/header.php");
 						<span class="property-detail-keyfact__value">
 							<span class="iconify property-detail-keyfact__icon" data-icon="mdi:sofa-outline" aria-hidden="true"></span>
 							<span class="property-detail-keyfact__value-text"><?php if($property['furniture_included'] == "1"){ echo '<span class="iconify" data-icon="mdi:check"></span>'; }else{ echo '<span class="iconify" data-icon="mdi:close"></span>'; } ?></span>
-						</span>
-					</div>
-					<div class="property-detail-keyfact" role="listitem">
-						<span class="property-detail-keyfact__label">Available</span>
-						<span class="property-detail-keyfact__value">
-							<span class="iconify property-detail-keyfact__icon" data-icon="mdi:calendar-outline" aria-hidden="true"></span>
-							<span class="property-detail-keyfact__value-text"><?php if($property['available_soon'] == null) { echo date("d/m/Y",strtotime($property['date_available']));  } else { echo 'Available Soon'; }  ?></span>
 						</span>
 					</div>
 				</div>
@@ -237,22 +226,66 @@ include_once("views/header.php");
 						</section>
 
 						<section class="property-detail-section property-detail-bottom-section">
-							<div class="row g-4">
-								<div class="col-md-6 col-xs-12">
-									<div class="property-detail-section-title">Property Video <small class="text-muted">(if applicable)</small></div>
-									<div class="property-detail-media-card">
-										<div class="property-detail-media-card__body">
-										<?php echo getPropertyVideo($property['id']); ?>
+							<h2 class="property-detail-section__title">Documents &amp; media</h2>
+							<div class="accordion property-detail-accordion" id="propertyMediaAccordion">
+								<div class="accordion-item property-detail-accordion__item">
+									<h3 class="accordion-header" id="propertyVideoHeading">
+										<button class="accordion-button collapsed property-detail-accordion__button" type="button" data-bs-toggle="collapse" data-bs-target="#propertyVideoCollapse" aria-expanded="false" aria-controls="propertyVideoCollapse">
+											<span class="iconify property-detail-accordion__icon" data-icon="mdi:video-outline"></span>
+											Property Video
+											<small class="property-detail-accordion__hint">(if applicable)</small>
+										</button>
+									</h3>
+									<div id="propertyVideoCollapse" class="accordion-collapse collapse" aria-labelledby="propertyVideoHeading" data-bs-parent="#propertyMediaAccordion">
+										<div class="accordion-body property-detail-accordion__body">
+											<div class="property-detail-media-card">
+												<div class="property-detail-media-card__body">
+												<?php echo getPropertyVideo($property['id']); ?>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6 col-xs-12">
-									<div class="property-detail-section-title">Property Files</div>
-									<div class="property-detail-media-card">
-										<div class="property-detail-media-card__body property-detail-files-grid">
-									<?php
-										echo getPropertyFiles($property['id']);
-									?>
+								<div class="accordion-item property-detail-accordion__item">
+									<h3 class="accordion-header" id="propertyEpcHeading">
+										<button class="accordion-button collapsed property-detail-accordion__button" type="button" data-bs-toggle="collapse" data-bs-target="#propertyEpcCollapse" aria-expanded="false" aria-controls="propertyEpcCollapse">
+											<span class="iconify property-detail-accordion__icon" data-icon="mdi:leaf-circle-outline"></span>
+											Energy Performance Certificate
+										</button>
+									</h3>
+									<div id="propertyEpcCollapse" class="accordion-collapse collapse" aria-labelledby="propertyEpcHeading" data-bs-parent="#propertyMediaAccordion">
+										<div class="accordion-body property-detail-accordion__body">
+											<div class="property-detail-media-card">
+												<div class="property-detail-media-card__body property-detail-epc-panel">
+												<?php if(!empty($property['epc'])){ ?>
+													<a href="assets/property_files/<?php echo $property['epc']; ?>" target="_blank" rel="noopener" class="property-detail-epc-panel__link">
+														<img src="assets/property_files/<?php echo $property['epc']; ?>" alt="Energy Performance Certificate" class="property-detail-epc-panel__image">
+													</a>
+													<p class="property-detail-epc-panel__caption mb-0">Click the certificate to open the full image.</p>
+												<?php }else{ ?>
+													<p class="property-detail-epc-panel__empty mb-0"><i>No energy performance certificate available for this property.</i></p>
+												<?php } ?>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item property-detail-accordion__item">
+									<h3 class="accordion-header" id="propertyFilesHeading">
+										<button class="accordion-button collapsed property-detail-accordion__button" type="button" data-bs-toggle="collapse" data-bs-target="#propertyFilesCollapse" aria-expanded="false" aria-controls="propertyFilesCollapse">
+											<span class="iconify property-detail-accordion__icon" data-icon="mdi:file-document-multiple-outline"></span>
+											Property Files
+										</button>
+									</h3>
+									<div id="propertyFilesCollapse" class="accordion-collapse collapse" aria-labelledby="propertyFilesHeading" data-bs-parent="#propertyMediaAccordion">
+										<div class="accordion-body property-detail-accordion__body">
+											<div class="property-detail-media-card">
+												<div class="property-detail-media-card__body property-detail-files-grid">
+											<?php
+												echo getPropertyFiles($property['id'], array('EPC'));
+											?>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -311,6 +344,8 @@ include_once("views/header.php");
 		</div>
 	</div>
 <?php
+$portal_extra_scripts = '<script type="text/javascript" src="assets/js/property-card-carousel.js?ver='.time().'"></script>
+<script type="text/javascript" src="https://milankyncl.github.io/jquery-copy-to-clipboard/jquery.copy-to-clipboard.js"></script>';
 include_once("views/footer.php");
 ?>
 <script type="text/javascript">
@@ -319,75 +354,38 @@ $(document).ready(function(){
 	  $('[data-bs-toggle="tooltip"]').tooltip()
 	})
 
-	var $slides = $('.property-detail-gallery__slide');
-	var $thumbs = $('.property-detail-gallery__thumb');
-	var total = $slides.length;
-	var current = 0;
-	var $thumbScroll = $('#property-gallery-thumbs');
+	var $carousel = $('.property-detail-gallery__carousel');
+	var $mainLightbox = $('#property-main-lightbox');
 
-	function scrollThumbIntoView(index) {
-		if (!$thumbScroll.length || !$thumbs.length) {
-			return;
-		}
-		var thumb = $thumbs.eq(index)[0];
-		if (thumb) {
-			thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+	function syncDetailLightbox(index) {
+		var $sources = $carousel.find('.property-card-carousel__source');
+		var $source = $sources.eq(index);
+		if ($mainLightbox.length && $source.length) {
+			var fullSrc = $source.attr('data-full');
+			if (fullSrc) {
+				$mainLightbox.attr('href', fullSrc);
+			}
 		}
 	}
 
-	function goTo(index) {
-		if (total < 1) {
-			return;
-		}
-		current = (index + total) % total;
-		$slides.removeClass('is-active').eq(current).addClass('is-active');
-		$thumbs.removeClass('is-active').eq(current).addClass('is-active');
-		$('#property-gallery-current').text(current + 1);
-		scrollThumbIntoView(current);
+	if ($carousel.length) {
+		$carousel.each(function() {
+			this.addEventListener('propertyCarouselChange', function(event) {
+				syncDetailLightbox(event.detail.index);
+			});
+		});
+		syncDetailLightbox(parseInt($carousel.attr('data-index') || '0', 10));
 	}
-
-	if (total > 0) {
-		goTo(0);
-	}
-
-	if (total <= 1) {
-		$('.property-detail-gallery__arrow, .property-detail-gallery__aside').hide();
-	}
-
-	$('.property-detail-gallery__arrow--prev').on('click', function(e) {
-		e.preventDefault();
-		goTo(current - 1);
-	});
-
-	$('.property-detail-gallery__arrow--next').on('click', function(e) {
-		e.preventDefault();
-		goTo(current + 1);
-	});
-
-	$thumbs.on('click', function(e) {
-		e.preventDefault();
-		goTo($thumbs.index(this));
-	});
-
-	$('.property-detail-gallery__thumb-arrow--up').on('click', function(e) {
-		e.preventDefault();
-		goTo(current - 1);
-	});
-
-	$('.property-detail-gallery__thumb-arrow--down').on('click', function(e) {
-		e.preventDefault();
-		goTo(current + 1);
-	});
 
 	$(document).on('keydown', function(e) {
-		if (!$('.property-detail-gallery').length) {
+		if (!$carousel.length) {
 			return;
 		}
 		if (e.key === 'ArrowLeft') {
-			goTo(current - 1);
+			$carousel.find('.property-card-carousel__nav--prev').trigger('click');
 		}
 		if (e.key === 'ArrowRight') {
-			goTo(current + 1);
+			$carousel.find('.property-card-carousel__nav--next').trigger('click');
 		}
 	});
 
@@ -408,11 +406,8 @@ $(document).ready(function(){
 	}
 });
 </script>
-<script type="text/javascript" src="https://milankyncl.github.io/jquery-copy-to-clipboard/jquery.copy-to-clipboard.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
   $('.copyToClipboard').CopyToClipboard();
 });
 </script>
-</body>
-</html>

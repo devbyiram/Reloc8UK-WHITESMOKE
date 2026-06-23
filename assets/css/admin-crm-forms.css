@@ -369,6 +369,35 @@
 	-webkit-overflow-scrolling: touch;
 }
 
+.admin-crm-page .admin-crm-field-hint {
+	margin: 0;
+	font-size: 0.8125rem !important;
+	color: var(--crm-muted);
+	line-height: 1.4;
+}
+
+.admin-crm-page .admin-crm-epc-preview {
+	padding: 0.85rem;
+	border: 1px solid #eef1f5;
+	border-radius: 10px;
+	background: #fafbfc;
+}
+
+.admin-crm-page .admin-crm-epc-preview__image {
+	display: block;
+	max-width: 100%;
+	max-height: 220px;
+	width: auto;
+	height: auto;
+	border-radius: 8px;
+	border: 1px solid #e5e7eb;
+	background: #fff;
+}
+
+.admin-crm-page .admin-crm-epc-upload .admin-crm-file-row {
+	margin-bottom: 0;
+}
+
 @media (max-width: 767px) {
 	.admin-crm-page .admin-crm-toolbar {
 		flex-direction: column;

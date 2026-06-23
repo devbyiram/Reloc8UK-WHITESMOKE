@@ -85,6 +85,28 @@ if(isset($_POST['edit_property']) && $_POST['edit_property'] == 1){
 	
 }
 
+if(isset($_POST['upload_epc']) && $_POST['upload_epc'] == 1){
+	
+	$id = $_POST['id'];
+	
+	if(!empty($_FILES['property_epc']['name'])){
+		if(!savePropertyEpc($id, $_FILES['property_epc'])){
+			header('Location: admin-edit-property.php?id='.$id.'&epc_error=1');
+			exit;
+		}
+	}
+	
+	header('Location: admin-edit-property.php?id='.$id);
+	exit;
+}
+
+if(isset($_GET['remove_epc']) && $_GET['remove_epc'] == 1 && !empty($_GET['id'])){
+	
+	removePropertyEpc($_GET['id']);
+	header('Location: admin-edit-property.php?id='.$_GET['id']);
+	exit;
+}
+
 $property = getProperty($_GET['id']);
 $councilUsers = getCouncilUsers();
 $page = "admin";
@@ -358,6 +380,39 @@ include_once("views/header.php");
 		</div>
 		<div class="card admin-crm-panel mb-4">
 			<div class="card-header">
+				<span class="iconify" data-icon="mdi:leaf-circle-outline"></span>
+				<h5>Energy Performance Certificate</h5>
+			</div>
+			<div class="card-body">
+				<label for="property_epc" class="admin-crm-label">Energy Performance Certificate</label>
+				<!-- <p class="admin-crm-field-hint mb-2">Accepted formats: JPG, JPEG, PNG, SVG</p> -->
+				<?php if(!empty($_GET['epc_error'])){ ?>
+				<div class="alert alert-danger py-2 mb-2">Invalid file type. Please upload a JPG, JPEG, PNG, or SVG image.</div>
+				<?php } ?>
+				<?php if(!empty($property['epc'])){ ?>
+				<div class="admin-crm-epc-preview mb-3">
+					<a href="assets/property_files/<?php echo $property['epc']; ?>" target="_blank" rel="noopener">
+						<img src="assets/property_files/<?php echo $property['epc']; ?>" alt="Energy Performance Certificate" class="admin-crm-epc-preview__image">
+					</a>
+					<div class="mt-2">
+						<a href="admin-edit-property.php?id=<?php echo $property['id']; ?>&remove_epc=1" class="btn btn-sm btn-danger">Remove EPC</a>
+					</div>
+				</div>
+				<?php } ?>
+				<form action="admin-edit-property.php?id=<?php echo $property['id']; ?>" method="post" enctype="multipart/form-data" class="admin-crm-epc-upload">
+					<input type="hidden" name="upload_epc" value="1">
+					<input type="hidden" name="id" value="<?php echo $property['id']; ?>">
+					<div class="admin-crm-file-row">
+						<div class="admin-crm-file-input">
+							<input type="file" class="form-control admin-crm-control" name="property_epc" id="property_epc" accept=".jpg,.jpeg,.png,.svg,image/jpeg,image/png,image/svg+xml">
+						</div>
+						<button class="btn btn-crm-secondary" type="submit"><span class="iconify" data-icon="mdi:upload-outline"></span><?php echo !empty($property['epc']) ? 'Replace EPC' : 'Upload EPC'; ?></button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="card admin-crm-panel mb-4">
+			<div class="card-header">
 				<span class="iconify" data-icon="mdi:image-multiple-outline"></span>
 				<h5>Property images</h5>
 			</div>
@@ -579,5 +634,3 @@ $(document).ready(function(){
 
 	});
 </script>
-</body>
-</html>

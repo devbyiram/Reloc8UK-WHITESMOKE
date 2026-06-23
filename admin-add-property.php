@@ -69,292 +69,237 @@ if(isset($_POST['add_property']) && $_POST['add_property'] == 1){
 $properties = getAllProperties();
 $users = getUsers();
 $page = "admin";
+$page_title = 'Reloc8UK Admin - Add Property';
+$portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/admin-crm-forms.css?ver='.time().'">
+<script src="https://cdn.getaddress.io/scripts/getaddress-autocomplete-1.1.3.min.js"></script>';
+include_once("views/header.php");
 ?>
-<!DOCTYPE html>
-<head>
-<title>Reloc8UK Admin - Add Property</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<style type="text/css">
-#primary-nav {
-  background-color: #545659;
-  color: white;
-}
-#primary-nav a {
-	color: white;
-}
-
-</style>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" href="assets/css/styles.css?ver=<?php echo time(); ?>">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="//cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
-<script src="https://cdn.getaddress.io/scripts/getaddress-autocomplete-1.1.3.min.js">
-</script>
-</head>
-<body class="bg-light">
-<?php
-include_once("views/navbar.php");
-?>
-	<main role="main" class="container">
-		<div class="my-3 p-3 bg-white rounded shadow-sm">
-			<h4 class="border-bottom border-gray pb-2 mb-0">Add Property</h4>
-			<p class="lead">Add a new property to the Reloc8UK property portal. Fill in all required fields as a minimum.</p>
-		</div>
-		<div class="my-3 p-3 bg-white rounded shadow-sm">
-			<h6 class="border-bottom border-gray pb-2 mb-0">Property Details</h6>
-				<div class="form-group row my-2">
-					<div class="col-sm-12">
-						<form method="post" action="admin-add-property.php">
-						    <div class="form-group row my-2">
-						        <div class="col-md-4 col-sm-6">
-        						    <label>First Address Line</label>
-                                    <input id="formatted_address_0" name="line_1" type="text" class="form-control">
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <label>Second Address Line</label>
-                                    <input id="formatted_address_1" name="line_2" type="text" class="form-control">
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <label>Third Address Line</label>
-                                    <input id="formatted_address_2" name="line_3" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row my-2">
-                                <div class="col-md-4 col-sm-6">
-                                    <label>Town</label>
-                                    <input id="town_or_city" name="town_or_city" type="text" class="form-control">
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <label>County</label>
-                                    <input id="county" name="county" type="text" class="form-control">
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <label>Postcode</label>
-                                    <input id="postcode" name="postcode" type="text" class="form-control">
-                                </div>
-                            </div>
-						<script>
-                            getAddress.autocomplete('formatted_address_0','lQT30nDJI0edlwoTuJUevA37690');
-                        </script>
+		<div class="admin-crm-page">
+		<div class="card admin-crm-page-header mb-4">
+			<div class="card-body">
+				<div class="admin-crm-page-header__row">
+					<div>
+						<h1 class="admin-crm-page-header__title">Add Property</h1>
+						<p class="admin-crm-page-header__subtitle">Add a new property to the Reloc8UK property portal. Fill in all required fields as a minimum.</p>
 					</div>
 				</div>
-			
-				<div class="bg-light my-2 p-2">
-					<h6>Tenancy Information</h6>
-					<div class="form-group row my-2">
-						<div class="col-md-2 col-sm-12">
-							<label for="property_type">Property Type</label>
-							<select name="property_type" class="form-control" required>
+			</div>
+		</div>
+		<div class="card admin-crm-panel mb-4">
+			<div class="card-header">
+				<span class="iconify" data-icon="mdi:home-plus-outline"></span>
+				<h5>Property details</h5>
+			</div>
+			<div class="card-body">
+			<form method="post" action="admin-add-property.php">
+				<div class="admin-crm-section">
+					<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:map-marker-outline"></span>Address</h6>
+					<div class="row g-3">
+						<div class="col-md-4 col-sm-6">
+							<label for="formatted_address_0" class="admin-crm-label">First Address Line</label>
+							<input id="formatted_address_0" name="line_1" type="text" class="form-control admin-crm-control">
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<label for="formatted_address_1" class="admin-crm-label">Second Address Line</label>
+							<input id="formatted_address_1" name="line_2" type="text" class="form-control admin-crm-control">
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<label for="formatted_address_2" class="admin-crm-label">Third Address Line</label>
+							<input id="formatted_address_2" name="line_3" type="text" class="form-control admin-crm-control">
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<label for="town_or_city" class="admin-crm-label">Town</label>
+							<input id="town_or_city" name="town_or_city" type="text" class="form-control admin-crm-control">
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<label for="county" class="admin-crm-label">County</label>
+							<input id="county" name="county" type="text" class="form-control admin-crm-control">
+						</div>
+						<div class="col-md-4 col-sm-6">
+							<label for="postcode" class="admin-crm-label">Postcode</label>
+							<input id="postcode" name="postcode" type="text" class="form-control admin-crm-control">
+						</div>
+					</div>
+				</div>
+				<div class="admin-crm-section">
+					<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:file-document-outline"></span>Tenancy information</h6>
+					<div class="row g-3">
+						<div class="col-md-4 col-sm-12">
+							<label for="property_type" class="admin-crm-label">Property Type</label>
+							<select name="property_type" id="property_type" class="form-select admin-crm-control" required>
 								<?php
 									global $propertyTypes;
-									
 									foreach($propertyTypes as $key=>$value){
 										echo '<option value="'.$key.'">'.$value.'</option>';
 									}
 								?>
 							</select>
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<label for="tenancy_type">Tenancy Type</label>
-							<select name="tenancy_type" class="form-control" required>
-								<option value="" selected disabled>-- Select type --</option>
+						<div class="col-md-4 col-sm-12">
+							<label for="tenancy_type" class="admin-crm-label">Tenancy Type</label>
+							<select name="tenancy_type" id="tenancy_type" class="form-select admin-crm-control" required>
+								<option value="" selected disabled>Select type</option>
 								<option value="6 Month AST">6 Month AST</option>
 								<option value="12 Month AST">12 Month AST</option>
 								<option value="18 Month AST">18 Month AST</option>
 								<option value="24 Month AST">24 Month AST</option>
 							</select>
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<label for="same_day_move">Same Day Move</label>
-							<select name="same_day_move" class="form-control" required>
-								<option value="" selected disabled>-- Select --</option>
+						<div class="col-md-4 col-sm-12">
+							<label for="same_day_move" class="admin-crm-label">Same Day Move</label>
+							<select name="same_day_move" id="same_day_move" class="form-select admin-crm-control" required>
+								<option value="" selected disabled>Select</option>
 								<option value="0">No</option>
 								<option value="1">Yes</option>
 							</select>
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<label for="date_available">Date Available</label>
-							<input type="date" class="form-control" placeholder="Date Available" name="date_available">
-							<label for="available_soon"><input type="checkbox" name="available_soon" value="1"> Available Soon</label>
+						<div class="col-md-4 col-sm-12">
+							<label for="date_available" class="admin-crm-label">Date Available</label>
+							<input type="date" class="form-control admin-crm-control" placeholder="Date Available" name="date_available" id="date_available">
+							<label class="admin-crm-export-label mt-2" for="available_soon">
+								<input type="checkbox" name="available_soon" id="available_soon" value="1">
+								<span>Available Soon</span>
+							</label>
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<label for="reference">Reference</label>
-							<input type="text" class="form-control" placeholder="Reference" name="reference">
+						<div class="col-md-4 col-sm-12">
+							<label for="reference" class="admin-crm-label">Reference <small class="text-muted">(If applicable)</small></label>
+							<input type="text" class="form-control admin-crm-control" placeholder="Reference" name="reference" id="reference">
 						</div>
-						<div class="col-md-2 col-sm-12">
-							<label for="rent_pcm">Rent PCM</label>
+						<div class="col-md-4 col-sm-12">
+							<label for="rent_pcm" class="admin-crm-label">Rent PCM</label>
 							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="pound-sign-addon">&pound;</span>
-								</div>
-								<input type="number" class="form-control" placeholder="Rent PCM" name="rent_pcm" aria-label="Rent PCM" aria-describedby="pound-sign-addon" required>
+								<span class="input-group-text" id="pound-sign-addon">&pound;</span>
+								<input type="number" class="form-control admin-crm-control" placeholder="Rent PCM" name="rent_pcm" id="rent_pcm" aria-label="Rent PCM" aria-describedby="pound-sign-addon" required>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="bg-light my-2 p-2">
-					<h6>Property Attributes</h6>
-					<div class="form-group row my-2">
-						
-						<div class="col-md-2 col-sm-6">
-							<label for="bedrooms">Bedrooms</label>
-							<select class="form-control" name="bedrooms" required>
-								<option value="" disabled selected>-- Bedrooms --</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
+				<div class="admin-crm-section">
+					<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:home-search-outline"></span>Property attributes</h6>
+					<div class="row g-3">
+						<div class="col-md-4 col-sm-6">
+							<label for="bedrooms" class="admin-crm-label">Bedrooms</label>
+							<select class="form-select admin-crm-control" name="bedrooms" id="bedrooms" required>
+								<option value="" disabled selected>Bedrooms</option>
+								<?php
+									for ($x = 1; $x <= 8; $x++) {
+										echo '<option value="'.$x.'">'.$x.'</option>';
+									}
+								?>
 							</select>
 						</div>
-						<div class="col-md-2 col-sm-6">
-							<label for="bathrooms">Bathrooms</label>
-							<select class="form-control" name="bathrooms" required>
-								<option value="" disabled selected>-- Bathrooms --</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
+						<div class="col-md-4 col-sm-6">
+							<label for="bathrooms" class="admin-crm-label">Bathrooms</label>
+							<select class="form-select admin-crm-control" name="bathrooms" id="bathrooms" required>
+								<option value="" disabled selected>Bathrooms</option>
+								<?php
+									for ($x = 1; $x <= 8; $x++) {
+										echo '<option value="'.$x.'">'.$x.'</option>';
+									}
+								?>
 							</select>
 						</div>
-						<div class="col-md-2 col-sm-6">
-							<label for="furniture_included">Furniture Included</label>
-							<select class="form-control" name="furniture_included" required>
-								<option value="" disabled selected>-- Furniture --</option>
+						<div class="col-md-4 col-sm-6">
+							<label for="furniture_included" class="admin-crm-label">Furniture Included</label>
+							<select class="form-select admin-crm-control" name="furniture_included" id="furniture_included" required>
+								<option value="" disabled selected>Furniture</option>
 								<option value="0">No</option>
 								<option value="1">Yes</option>
 							</select>
 						</div>
-						<div class="col-md-2 col-sm-6">
-							<label for="front_garden">Front Garden</label>
-							<select name="front_garden" class="form-control" required>
-								<option value="" disabled selected>-- Front Garden --</option>
+						<div class="col-md-4 col-sm-6">
+							<label for="front_garden" class="admin-crm-label">Front Garden</label>
+							<select name="front_garden" id="front_garden" class="form-select admin-crm-control" required>
+								<option value="" disabled selected>Front Garden</option>
 								<option value="0">No</option>
 								<option value="1">Yes</option>
 							</select>
 						</div>
-						<div class="col-md-2 col-sm-6">
-							<label for="rear_garden">Rear Garden</label>
-							<select name="rear_garden" class="form-control" required>
-								<option value="" disabled selected>-- Rear Garden --</option>
+						<div class="col-md-4 col-sm-6">
+							<label for="rear_garden" class="admin-crm-label">Rear Garden</label>
+							<select name="rear_garden" id="rear_garden" class="form-select admin-crm-control" required>
+								<option value="" disabled selected>Rear Garden</option>
 								<option value="0">No</option>
 								<option value="1">Yes</option>
 							</select>
 						</div>
-						<div class="col-md-2 col-sm-6">
-							<label for="central_heating">Central Heating</label>
-							<select name="central_heating" class="form-control" required>
-								<option value="" disabled selected>-- Central Heating --</option>
+						<div class="col-md-4 col-sm-6">
+							<label for="central_heating" class="admin-crm-label">Central Heating</label>
+							<select name="central_heating" id="central_heating" class="form-select admin-crm-control" required>
+								<option value="" disabled selected>Central Heating</option>
 								<option value="0">No</option>
 								<option value="1">Yes</option>
 							</select>
 						</div>
 					</div>
 				</div>
-				<div class="bg-light my-2 p-2">
-					<div class="form-group row my-2">
-						<div class="col-md-12">
-							<label for="notes">Additional Information</label>
-							<textarea name="notes" class="form-control"></textarea>
+				<div class="admin-crm-section">
+					<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:text-box-outline"></span>Additional details</h6>
+					<div class="row g-3">
+						<div class="col-12">
+							<label for="notes" class="admin-crm-label">Additional Information</label>
+							<textarea name="notes" id="notes" class="form-control admin-crm-control"></textarea>
 						</div>
 					</div>
 				</div>
-				<hr>
-				<h6 class="border-bottom border-gray pb-2 mb-0">Property Images</h6>
-				<div class="form-group row my-2">
-					<div class="col-md-12">
-						<i>Please save the property before adding images</i>
-					</div>
-				</div>
-				<!--<div class="form-group row my-2">
-					<div class="col-md-12">
-						<div class="custom-file">
-							<input type="file" class="custom-file-input" id="customFile" multiple disabled>
-							<label class="custom-file-label" for="customFile">Choose images</label>
-						</div>
-					</div>
-				</div>-->
-				<hr>
-				<h6 class="border-bottom border-gray pb-2 mb-0">Property EPC</h6>
-				<div class="form-group row my-2">
-					<div class="col-md-12">
-						<i>Please save the property before adding an EPC</i>
-					</div>
-				</div>
-				<!--<div class="form-group row my-2">
-					<div class="col-md-12">
-						<div class="custom-file">
-							<input type="file" class="custom-file-input" name="property_epc" id="property_epc" disabled>
-							<label class="custom-file-label" for="property_epc">Choose File</label>
-						</div>
-					</div>
-				</div>-->
-				<div class="form-group row my-2 d-flex justify-content-center">
+				<div class="admin-crm-submit-wrap">
 					<input type="hidden" name="add_property" value="1">
-					<button type="submit" class="btn btn-lg btn-dark d-block">Add Property</button>
+					<button type="submit" class="btn btn-crm-primary btn-lg"><span class="iconify" data-icon="mdi:plus-circle-outline"></span>Add Property</button>
 				</div>
 			</form>
+			</div>
 		</div>
-	</main>
-	
-	<footer>
-		<div class="copyright text-center py-2">
-			<small>&copy; Copyright <?php echo date("Y"); ?> Midland Relocations Limited.</small>
+		<div class="card admin-crm-panel mb-4">
+			<div class="card-header">
+				<span class="iconify" data-icon="mdi:leaf-circle-outline"></span>
+				<h5>Energy Performance Certificate</h5>
+			</div>
+			<div class="card-body">
+				<label class="admin-crm-label">Energy Performance Certificate</label>
+				<p class="admin-crm-field-hint mb-0">Please save the property before adding an energy performance certificate.</p>
+			</div>
 		</div>
-	</footer>
+		<div class="card admin-crm-panel mb-4">
+			<div class="card-header">
+				<span class="iconify" data-icon="mdi:image-multiple-outline"></span>
+				<h5>Property images</h5>
+			</div>
+			<div class="card-body">
+				<p class="admin-crm-field-hint mb-0">Please save the property before adding images.</p>
+			</div>
+		</div>
+		</div>
+<?php include_once("views/footer.php"); ?>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#propertyResults').DataTable({
-		responsive:true
-	});
-	$('#userResults').DataTable({
-		responsive:true
-	});
+	if (typeof getAddress !== 'undefined') {
+		getAddress.autocomplete('formatted_address_0','lQT30nDJI0edlwoTuJUevA37690');
+	}
+
 	$("#select_address").on('change',function(e){
 		var line1, line2, line3, town, county, postcode, fulladdress;
-		
-		line1 = $(this).find(':selected').attr('data-address1')
-		line2 = $(this).find(':selected').attr('data-address2')
-		line3 = $(this).find(':selected').attr('data-address3')
-		town = $(this).find(':selected').attr('data-town')
-		county = $(this).find(':selected').attr('data-county')
-		postcode = $(this).find(':selected').attr('data-postcode')
-		fulladdress = $(this).find(':selected').attr('data-fulladdress')
-		
-		
+
+		line1 = $(this).find(':selected').attr('data-address1');
+		line2 = $(this).find(':selected').attr('data-address2');
+		line3 = $(this).find(':selected').attr('data-address3');
+		town = $(this).find(':selected').attr('data-town');
+		county = $(this).find(':selected').attr('data-county');
+		postcode = $(this).find(':selected').attr('data-postcode');
+		fulladdress = $(this).find(':selected').attr('data-fulladdress');
+
 		$("#address1").val(line1);
 		$("#address2").val(line2);
 		$("#address3").val(line3);
 		$("#town").val(town);
 		$("#county").val(county);
 		$("#postcode").val(postcode);
-		
+
 		$(".hiddenUntilSelected").removeClass("d-none").show("slow");
 		$(".selectedAddress .text").html("Address selected: " + fulladdress + ".<br/> Need to manually edit? <a href='#' class='manualEditAddress'>Click here</a>");
-		
 	});
-} );
-$(document).on("click", '.manualEditAddress', function(event) { 
-    event.preventDefault();
-		
+});
+$(document).on("click", '.manualEditAddress', function(event) {
+	event.preventDefault();
 	$(".hiddenUnlessManual").removeClass("d-none").show("slow");
 });
 </script>
-</body>
-</html>
