@@ -87,6 +87,7 @@
 	border-radius: 0;
 	padding: 0;
 	background: transparent;
+	overflow-x: auto;
 }
 
 .admin-bids-page .dataTables_wrapper {

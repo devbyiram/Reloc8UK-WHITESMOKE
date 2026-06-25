@@ -55,45 +55,142 @@ $councils = getAllCouncils();
 $getContacts = getAllContacts($_SESSION['user_id']);
 
 $page_title = "Reloc8UK Portal Offer Property";
+$portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/admin-crm-forms.css?ver='.time().'">
+<link rel="stylesheet" type="text/css" href="assets/css/property-card.css?ver='.time().'">
+<link rel="stylesheet" type="text/css" href="assets/css/property-card-rightmove.css?ver='.time().'">';
 include_once("views/header.php");
 ?>
-<main class="portal-main container">
-	<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="savelater">
-	<input type="hidden" name="pid" value="<?php echo $property['id']; ?>">
-	<input type="hidden" name="uid" value="<?php echo $_SESSION['user_id']; ?>">
-	<input type="hidden" name="status" value="1">
-	<div class="portal-card mb-4">
-		<div class="portal-card-header">
-			<h4>Offer Property</h4>
-		</div>
-		<div class="portal-card-body">
-			<p class="lead mb-0">By placing an offer on this property, you confirm that you have offered this to a tenant and the tenant has accepted the property.</p>
-		</div>
-	</div>
-	<div class="portal-card mb-4 border border-secondary">
-		<div class="portal-card-body">
-		<div class="row">
-			<div class="col-md-3 col-sm-12 justify-content-center">
-				<img src="assets/property_images/<?php echo $propertyImages[0]; ?>" width="128" class="img-fluid mx-auto d-block">
-			</div>
-			<div class="col-md-9 col-sm-12">
-				<p class="lead"><a href="view-property.php?id=<?php echo $property['id']; ?>"><?php echo $property['address1'] . ", " . $property['county']; ?></a></p>
-				<p>Rent PCM: &pound;<?php echo $property['rent_pcm']; ?></p>
-				<p>Bedrooms: <?php echo $property['bedrooms']; ?> | Bathrooms: <?php echo $property['bathrooms']; ?></p>
+		<div class="admin-crm-page">
+		<div class="card admin-crm-page-header mb-4">
+			<div class="card-body">
+				<div class="admin-crm-page-header__row">
+					<div>
+						<h1 class="admin-crm-page-header__title">Offer Property</h1>
+						<p class="admin-crm-page-header__subtitle">Submit a tenant offer for this property.</p>
+						<span class="admin-crm-page-header__meta"><span class="iconify" data-icon="mdi:file-document-outline"></span>Offer submission</span>
+					</div>
+					<a href="view-property.php?id=<?php echo $property['id']; ?>" class="btn btn-crm-secondary"><span class="iconify" data-icon="mdi:eye-outline"></span>View Property</a>
+				</div>
 			</div>
 		</div>
+		<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="savelater">
+		<input type="hidden" name="pid" value="<?php echo $property['id']; ?>">
+		<input type="hidden" name="uid" value="<?php echo $_SESSION['user_id']; ?>">
+		<input type="hidden" name="status" value="1">
+		<div class="card admin-crm-panel mb-4">
+			<div class="card-header">
+				<span class="iconify" data-icon="mdi:information-outline"></span>
+				<h5>Offer confirmation</h5>
+			</div>
+			<div class="card-body">
+				<p class="mb-0 text-muted">By placing an offer on this property, you confirm that you have offered this to a tenant and the tenant has accepted the property.</p>
+			</div>
 		</div>
-	</div>
-	<div class="portal-card mb-4">
-		<div class="portal-card-body">
-		<p class="lead">Please fill this form out as completely as possible. A member of the team will approve your offer shortly after submission, so please check your inbox.</p>
-		<div class="form-group row my-4">
-			<div class="col-md-3">
-				<label for="council_id">Council</label>
+		<div class="property-listings-grid mb-4">
+			<div class="property-listings-grid__item d-flex">
+				<article class="property-card property-card--rightmove card w-100 h-100">
+					<div class="property-card__media">
+						<div class="property-card-carousel">
+							<div class="property-card-carousel__sources" aria-hidden="true" hidden>
+								<?php if($property['images']){ ?>
+									<?php foreach($propertyImages as $imageFile){ ?>
+									<span class="property-card-carousel__source" data-src="./system/thumbs.php?src=assets/property_images/<?php echo $imageFile; ?>&w=640&h=420"></span>
+									<?php } ?>
+								<?php }else{ ?>
+									<span class="property-card-carousel__source" data-src="./system/thumbs.php?src=assets/property_images/property.png&w=640&h=420"></span>
+								<?php } ?>
+							</div>
+							<div class="property-card-carousel__badge">
+								<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:floor-plan"></span>
+								<span class="property-card-carousel__badge-sep" aria-hidden="true"></span>
+								<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:camera-outline"></span>
+								<span class="property-card-carousel__count">1/<?php if($property['images']){ echo count($propertyImages); }else{ echo "1"; } ?></span>
+							</div>
+							<div class="property-card-carousel__layout">
+								<div class="property-card-carousel__pane property-card-carousel__pane--main">
+									<div class="property-card-image"></div>
+									<button type="button" class="property-card-carousel__nav property-card-carousel__nav--prev" aria-label="Previous image">
+										<span class="iconify" data-icon="mdi:chevron-left" aria-hidden="true"></span>
+									</button>
+									<button type="button" class="property-card-carousel__nav property-card-carousel__nav--next" aria-label="Next image">
+										<span class="iconify" data-icon="mdi:chevron-right" aria-hidden="true"></span>
+									</button>
+								</div>
+								<div class="property-card-carousel__pane property-card-carousel__pane--thumbs">
+									<div class="property-card-carousel__thumb">
+										<div class="property-card-image"></div>
+									</div>
+									<div class="property-card-carousel__thumb">
+										<div class="property-card-image"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="property-card-price-strip">
+							<div class="property-card-price"><?php if($property['rent_pcm'] == "0.00") { echo "TBA"; }else{ echo "&pound;" . $property['rent_pcm'] . " pcm"; } ?></div>
+						</div>
+					</div>
+					<div class="card-body property-card__content d-flex flex-column">
+						<div class="property-card__summary">
+							<div class="property-card-tags property-card-tags--top">
+								<?php if($property['same_day_move'] == "1"){ ?>
+								<span class="property-card-tag property-card-tag--sameday"><span class="iconify" data-icon="mdi:truck-fast-outline"></span> Same day</span>
+								<?php } ?>
+								<?php if($property['status'] == 0){ ?>
+									<span class="property-card-tag property-card-tag--status property-card-tag--status-available">Available</span>
+								<?php }elseif($property['status'] == 1){ ?>
+									<span class="property-card-tag property-card-tag--status property-card-tag--status-reserved">Reserved</span>
+								<?php }elseif($property['status'] == 2){ ?>
+									<span class="property-card-tag property-card-tag--status property-card-tag--status-held">Held</span>
+								<?php }elseif($property['status'] == 3){ ?>
+									<span class="property-card-tag property-card-tag--status property-card-tag--status-offer">Under Offer</span>
+								<?php }elseif($property['status'] == 4){ ?>
+									<span class="property-card-tag property-card-tag--status property-card-tag--status-let">Let</span>
+								<?php } ?>
+							</div>
+							<div class="property-card-address property-card-address--rightmove">
+								<div class="property-card-address-line"><?php echo $property['address1']; ?></div>
+								<div class="property-card-address-postcode"><?php echo $property['postcode']; ?></div>
+							</div>
+							<div class="property-card-keyinfo property-card-keyinfo--rightmove">
+								<?php if(!empty($property['property_type']) && isset($propertyTypes[$property['property_type']])){ ?>
+								<span class="property-card-stat property-card-stat--type"><?php echo $propertyTypes[$property['property_type']]; ?></span>
+								<span class="property-card-keyinfo__sep" aria-hidden="true"></span>
+								<?php } ?>
+								<span class="property-card-stat"><span class="iconify" data-icon="mdi:bed-king-outline"></span><?php echo $property['bedrooms']; ?></span>
+								<span class="property-card-keyinfo__sep" aria-hidden="true"></span>
+								<span class="property-card-stat"><span class="iconify" data-icon="mdi:bathtub-outline"></span><?php echo $property['bathrooms']; ?></span>
+							</div>
+							<?php if(!empty(trim($property['notes']))){ ?>
+							<p class="property-card-description"><?php echo strip_tags($property['notes']); ?></p>
+							<?php } ?>
+						</div>
+						<div class="property-card__footer">
+							<div class="property-card-meta"><span class="iconify" data-icon="mdi:clock-outline"></span>Added <?php echo time_elapsed_string($property['listed']); ?></div>
+							<div class="property-actions d-flex">
+								<a href="view-property.php?id=<?php echo $property['id']; ?>" class="btn btn-sm property-card-btn property-card-btn--view"><span class="iconify" data-icon="mdi:eye-outline"></span>View</a>
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+		<div class="card admin-crm-panel mb-4">
+			<div class="card-header">
+				<span class="iconify" data-icon="mdi:clipboard-text-outline"></span>
+				<h5>Offer details</h5>
+			</div>
+			<div class="card-body">
+		<p class="text-muted mb-4">Please fill this form out as completely as possible. A member of the team will approve your offer shortly after submission, so please check your inbox.</p>
+		<div class="admin-crm-section">
+			<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:account-tie-outline"></span>Council &amp; officer</h6>
+			<div class="row g-3">
+			<div class="col-md-4">
+				<label for="council_id" class="admin-crm-label">Council</label>
 				<?php
 					$councils = getAllCouncils(); 
 				?>
-				<select name="council_id" class="form-control" required>
+				<select name="council_id" class="form-control admin-crm-control" required>
 				<?php
 					foreach($councils as $council){
 						$group[$council['council_group']][] = $council;
@@ -109,97 +206,105 @@ include_once("views/header.php");
 				?>
 				</select>
 			</div>
-			<div class="col-md-3">
-				<label for="officer_name">Officer Name</label>
-				<input type="text" name="officer_name" class="form-control" required placeholder="Officer name" />
+			<div class="col-md-4">
+				<label for="officer_name" class="admin-crm-label">Officer Name</label>
+				<input type="text" name="officer_name" class="form-control admin-crm-control" required placeholder="Officer name" />
 			</div>
-			<div class="col-md-3">
-				<label for="officer_telephone">Officer Telephone</label>
-				<input type="text" name="officer_telephone" class="form-control" required placeholder="Officer telephone" />
+			<div class="col-md-4">
+				<label for="officer_telephone" class="admin-crm-label">Officer Telephone</label>
+				<input type="text" name="officer_telephone" class="form-control admin-crm-control" required placeholder="Officer telephone" />
 			</div>
-			<div class="col-md-3">
-				<label for="officer_email">Officer Email</label>
-				<input type="email" name="officer_email" class="form-control" required placeholder="Officer email" />
+			<div class="col-md-4">
+				<label for="officer_email" class="admin-crm-label">Officer Email</label>
+				<input type="email" name="officer_email" class="form-control admin-crm-control" required placeholder="Officer email" />
 			</div>
-		</div>
-		<hr>
-		<div class="form-group row my-4">
-			<div class="col-md-3">
-				<label for="applicant_name">Applicant's Name</label>
-				<input type="text" name="applicant_name" class="form-control" required placeholder="Applicant name" />
-			</div>
-			<div class="col-md-2">
-				<label for="applicant_email">Applicant's Email</label>
-				<input type="email" name="applicant_email" class="form-control" placeholder="Applicant email" />
-			</div>
-			<div class="col-md-2">
-				<label for="applicant_telephone">Applicant's Phone</label>
-				<input type="tel" name="applicant_telephone" class="form-control" placeholder="Applicant phone" />
-			</div>
-			<div class="col-md-3">
-				<label for="applicant_dob">Applicant's D.O.B</label>
-				<input type="date" name="applicant_dob" class="form-control" placeholder="Applicant DOB" />
-			</div>
-			<div class="col-md-2">
-				<label for="applicant_ni_number">Applicant's NI No</label>
-				<input type="text" name="applicant_ni_number" class="form-control" placeholder="Applicant NI No" />
 			</div>
 		</div>
-		<hr>
-		<div class="form-group row my-4">
-			<div class="col-md-3">
-				<label for="family_benefit_cap">Benefit Cap?</label>
-				<select name="family_benefit_cap" class="form-control" required>
-					<option value="" selected disabled>Select option</label>
-					<option value="1">Yes</option>
-					<option value="0">No</option>
-				</select>
+		<div class="admin-crm-section">
+			<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:account-outline"></span>Applicant</h6>
+			<div class="row g-3">
+			<div class="col-md-4">
+				<label for="applicant_name" class="admin-crm-label">Applicant's Name</label>
+				<input type="text" name="applicant_name" class="form-control admin-crm-control" required placeholder="Applicant name" />
 			</div>
-			<div class="col-md-3">
-				<label for="benefit_status">Benefit Status</label>
-				<input type="text" name="benefit_status" class="form-control" placeholder="Benefit status" required />
+			<div class="col-md-4">
+				<label for="applicant_email" class="admin-crm-label">Applicant's Email</label>
+				<input type="email" name="applicant_email" class="form-control admin-crm-control" placeholder="Applicant email" />
 			</div>
-			<div class="col-md-3">
-				<label for="family_travel">How will the family travel?</label>
-				<input type="text" name="family_travel" class="form-control" placeholder="How will the family travel?" required />
+			<div class="col-md-4">
+				<label for="applicant_telephone" class="admin-crm-label">Applicant's Phone</label>
+				<input type="tel" name="applicant_telephone" class="form-control admin-crm-control" placeholder="Applicant phone" />
 			</div>
-			<div class="col-md-3">
-				<label for="removals_required">Are removals required?</label>
-				<select name="removals_required" class="form-control" required>
+			<div class="col-md-4">
+				<label for="applicant_dob" class="admin-crm-label">Applicant's D.O.B</label>
+				<input type="date" name="applicant_dob" class="form-control admin-crm-control" placeholder="Applicant DOB" />
+			</div>
+			<div class="col-md-4">
+				<label for="applicant_ni_number" class="admin-crm-label">Applicant's NI No</label>
+				<input type="text" name="applicant_ni_number" class="form-control admin-crm-control" placeholder="Applicant NI No" />
+			</div>
+			</div>
+		</div>
+		<div class="admin-crm-section">
+			<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:cash-multiple"></span>Benefits &amp; travel</h6>
+			<div class="row g-3">
+			<div class="col-md-4">
+				<label for="family_benefit_cap" class="admin-crm-label">Benefit Cap?</label>
+				<select name="family_benefit_cap" class="form-control admin-crm-control" required>
 					<option value="" selected disabled>Select option</option>
 					<option value="1">Yes</option>
 					<option value="0">No</option>
 				</select>
 			</div>
-		</div>
-		<hr>
-		<div class="form-group row my-4">
-			<div class="col-md-3">
-				<label for="beds_required">Beds Required?</label>
-				<input type="text" name="beds_required" class="form-control" placeholder="Bed's required?" />
+			<div class="col-md-4">
+				<label for="benefit_status" class="admin-crm-label">Benefit Status</label>
+				<input type="text" name="benefit_status" class="form-control admin-crm-control" placeholder="Benefit status" required />
 			</div>
-			<div class="col-md-3">
-				<label for="electric_cooker">Cooker Required?</label>
-				<input type="text" name="electric_cooker" class="form-control" placeholder="Cooker required?" />
+			<div class="col-md-4">
+				<label for="family_travel" class="admin-crm-label">How will the family travel?</label>
+				<input type="text" name="family_travel" class="form-control admin-crm-control" placeholder="How will the family travel?" required />
 			</div>
-			<div class="col-md-3">
-				<label for="fridge_freezer">Fridge/freezer Required?</label>
-				<input type="text" name="fridge_freezer" class="form-control" placeholder="Fridge/freezer required?" />
+			<div class="col-md-4">
+				<label for="removals_required" class="admin-crm-label">Are removals required?</label>
+				<select name="removals_required" class="form-control admin-crm-control" required>
+					<option value="" selected disabled>Select option</option>
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</select>
 			</div>
-			<div class="col-md-3">
-				<label for="additional_items">Additional Items?</label>
-				<textarea class="textarea form-control" name="additional_items"></textarea>
 			</div>
 		</div>
-		<hr>
-		<div class="form-group row my-4">
-			<div class="col-md-3">
-				<label for="required_property_location">Required Property Location</label>
-				<input type="text" name="required_property_location" class="form-control" placeholder="Required Property Location" />
+		<div class="admin-crm-section">
+			<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:sofa-outline"></span>Items required</h6>
+			<div class="row g-3">
+			<div class="col-md-4">
+				<label for="beds_required" class="admin-crm-label">Beds Required?</label>
+				<input type="text" name="beds_required" class="form-control admin-crm-control" placeholder="Bed's required?" />
 			</div>
-			<div class="col-md-3">
-				<label for="required_bedrooms">Required Bedrooms</label>
-				<select name="required_bedrooms" class="form-control" required>
+			<div class="col-md-4">
+				<label for="electric_cooker" class="admin-crm-label">Cooker Required?</label>
+				<input type="text" name="electric_cooker" class="form-control admin-crm-control" placeholder="Cooker required?" />
+			</div>
+			<div class="col-md-4">
+				<label for="fridge_freezer" class="admin-crm-label">Fridge/freezer Required?</label>
+				<input type="text" name="fridge_freezer" class="form-control admin-crm-control" placeholder="Fridge/freezer required?" />
+			</div>
+			<div class="col-md-4">
+				<label for="additional_items" class="admin-crm-label">Additional Items?</label>
+				<textarea class="textarea form-control admin-crm-control" name="additional_items"></textarea>
+			</div>
+			</div>
+		</div>
+		<div class="admin-crm-section">
+			<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:home-search-outline"></span>Property requirements</h6>
+			<div class="row g-3">
+			<div class="col-md-4">
+				<label for="required_property_location" class="admin-crm-label">Required Property Location</label>
+				<input type="text" name="required_property_location" class="form-control admin-crm-control" placeholder="Required Property Location" />
+			</div>
+			<div class="col-md-4">
+				<label for="required_bedrooms" class="admin-crm-label">Required Bedrooms</label>
+				<select name="required_bedrooms" class="form-control admin-crm-control" required>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -210,43 +315,45 @@ include_once("views/header.php");
 					<option value="8">8</option>
 				</select>
 			</div>
-			<div class="col-md-3">
-				<label for="scheduled_move_date">Scheduled Move Date</label>
-				<input type="date" name="scheduled_move_date" class="form-control" placeholder="Scheduled move date" required />
+			<div class="col-md-4">
+				<label for="scheduled_move_date" class="admin-crm-label">Scheduled Move Date</label>
+				<input type="date" name="scheduled_move_date" class="form-control admin-crm-control" placeholder="Scheduled move date" required />
 			</div>
-			<div class="col-md-3">
-				<label for="property_held_from">Property Held From</label>
-				<input type="date" name="property_held_from" class="form-control" placeholder="Property held from" required />
+			<div class="col-md-4">
+				<label for="property_held_from" class="admin-crm-label">Property Held From</label>
+				<input type="date" name="property_held_from" class="form-control admin-crm-control" placeholder="Property held from" required />
+			</div>
 			</div>
 		</div>
-		<hr>
-		<div class="form-group row my-4">
+		<div class="admin-crm-section">
+			<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:file-sign"></span>Tenancy &amp; incentive</h6>
+			<div class="row g-3">
 			<div class="col-md-4">
-				<label for="tenancy_type">Tenancy Type</label>
-				<select name="tenancy_type" class="form-control" required>
+				<label for="tenancy_type" class="admin-crm-label">Tenancy Type</label>
+				<select name="tenancy_type" class="form-control admin-crm-control" required>
 					<option value="" selected disabled>Select option</option>
 					<option value="AST/Nightly">AST/Nightly</option>
 					<option value="EHL">EHL</option>
 				</select>
 			</div>
 			<div class="col-md-4">
-				<label for="incentive_amount">Incentive Amount</label>
-				<input type="text" name="incentive_amount" class="form-control" placeholder="Incentive amount" />
+				<label for="incentive_amount" class="admin-crm-label">Incentive Amount</label>
+				<input type="text" name="incentive_amount" class="form-control admin-crm-control" placeholder="Incentive amount" />
 			</div>
 			<div class="col-md-4">
-				<label for="other_requirements">Other Requirements</label>
-				<textarea name="other_requirements" class="textarea form-control"></textarea>
+				<label for="other_requirements" class="admin-crm-label">Other Requirements</label>
+				<textarea name="other_requirements" class="textarea form-control admin-crm-control"></textarea>
+			</div>
 			</div>
 		</div>
-		<div class="form-group row my-2 d-flex justify-content-center">
-			<div class="col-md-12">
-				<p class="lead">Add notes relevant to this offer</p>
-				<textarea class="textarea form-control" name="notes" placeholder="Add notes"></textarea>
-			</div>
+		<div class="admin-crm-section">
+			<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:note-edit-outline"></span>Offer notes</h6>
+			<label for="notes" class="admin-crm-label">Add notes relevant to this offer</label>
+			<textarea class="textarea form-control admin-crm-control" name="notes" id="notes" placeholder="Add notes"></textarea>
 		</div>
 		<!--<div class="form-group row my-4 mx-2 p-2 bg-light">
 			<p class="lead">Who should this form be sent to? Choose one of each from below. <strong><u>You must have added the contact first</u>.</strong></p>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<label for="social_worker">Social Worker</label>
 				<select name="email_to[social_worker]" class="form-control">
 					<option value="" selected disabled>Select contact</option>
@@ -259,7 +366,7 @@ include_once("views/header.php");
 					?>
 				</select>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<label for="manager">Manager</label>
 				<select name="email_to[manager]" class="form-control">
 					<option value="" selected disabled>Select contact</option>
@@ -272,7 +379,7 @@ include_once("views/header.php");
 					?>
 				</select>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<label for="west_london">West London</label>
 				<select name="email_to[west_london]" class="form-control">
 					<option value="" selected disabled>Select contact</option>
@@ -285,7 +392,7 @@ include_once("views/header.php");
 					?>
 				</select>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<label for="finance">Finance</label>
 				<select name="email_to[finance]" class="form-control">
 					<option value="" selected disabled>Select contact</option>
@@ -304,21 +411,21 @@ include_once("views/header.php");
 				<div class="alert alert-secondary text-center" style="display: none;"></div>
 			</div>
 		</div>
-		<div class="form-group row my-2 d-flex justify-content-center">
-			
+		<div class="admin-crm-submit-wrap">
 			<div class="btn-group">
 				<button id="clearSavedData" class="btn btn-lg btn-danger">Clear Form</button>
-				<button type="submit" id="save" class="btn-lg btn btn-primary">Save For Later</button>
-				<button class="btn btn-secondary btn-lg d-block" type="submit">Submit Offer</button>
+				<button type="submit" id="save" class="btn-lg btn btn-crm-secondary">Save For Later</button>
+				<button class="btn btn-crm-primary btn-lg" type="submit"><span class="iconify" data-icon="mdi:check-circle-outline"></span>Submit Offer</button>
 			</div>
 		</div>
+			</div>
 		</div>
-	</div>
-	</form>
-</main>
+		</form>
+		</div>
 <?php
 include_once("views/footer.php");
 ?>
 <script type="text/javascript" src="assets/js/form.js?ver=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="assets/js/property-card-carousel.js?ver=<?php echo time(); ?>"></script>
 </body>
 </html>

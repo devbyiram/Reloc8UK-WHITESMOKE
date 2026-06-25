@@ -59,100 +59,83 @@ if(isset($_POST['edit-user']) && $_POST['edit-user'] == 1){
 
 $user = getUser($_GET['id']);
 $page = "admin";
+$page_title = 'Reloc8UK Admin - Edit User';
+$portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/admin-crm-forms.css?ver='.time().'">';
+include_once("views/header.php");
 ?>
-<!DOCTYPE html>
-<head>
-<title>Reloc8UK Admin - Edit User <?php echo $property['id']; ?></title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<style type="text/css">
-#primary-nav {
-  background-color: #545659;
-  color: white;
-}
-#primary-nav a {
-	color: white;
-}
-
-</style>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" href="assets/css/styles.css?ver=<?php echo time(); ?>">
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="//cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-</head>
-<body class="bg-light">
-<?php
-include_once("views/navbar.php");
-?>
-	<main role="main" class="container">
-		<div class="my-3 p-3 bg-white rounded shadow-sm">
-			<h4 class="border-bottom border-gray pb-2 mb-0">Edit User</h4>
-			<p class="lead">You are currently editing user: <?php echo $user['name']; ?></p>
-			<?php if(!empty($_GET['updated']) && $_GET['updated'] == "true"){ ?>
-			<div class="alert alert-success">User updated!</div>
-			<?php } ?>
+		<div class="admin-crm-page">
+		<div class="card admin-crm-page-header mb-4">
+			<div class="card-body">
+				<div class="admin-crm-page-header__row">
+					<div>
+						<h1 class="admin-crm-page-header__title">Edit User</h1>
+						<p class="admin-crm-page-header__subtitle">You are currently editing user: <?php echo $user['name']; ?></p>
+					</div>
+				</div>
+				<?php if(!empty($_GET['updated']) && $_GET['updated'] == "true"){ ?>
+				<div class="alert alert-success mb-0 mt-3">User updated!</div>
+				<?php } ?>
+			</div>
 		</div>
-		<div class="my-3 p-3 bg-white rounded shadow-sm">
+		<div class="card admin-crm-panel mb-4">
+			<div class="card-header">
+				<span class="iconify" data-icon="mdi:account-edit-outline"></span>
+				<h5>User details</h5>
+			</div>
+			<div class="card-body">
 		<form method="post" action="admin-edit-user.php?id=<?php echo $user['id']; ?>" id="user-edit-form">
 			<input type="hidden" name="edit-user" value="1">
 			<input type="hidden" name="id" value="<?php echo $user['id']; ?>" />
-			<div class="p-2 bg-light mb-2">
-				<p class="lead">User Information</p>
-				<div class="form-group row my-2">
+			<div class="admin-crm-section">
+				<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:account-outline"></span>User Information</h6>
+				<div class="row g-3">
 					<div class="col-md-3 col-sm-12">
-						<label for="name">Full Name</label>
-						<input type="text" name="name" class="form-control" placeholder="User's full name" value="<?php echo $user['name']; ?>" />
+						<label for="name" class="admin-crm-label">Full Name</label>
+						<input type="text" name="name" class="form-control admin-crm-control" placeholder="User's full name" value="<?php echo $user['name']; ?>" />
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="email_address">Email Address</label>
-						<input type="email" name="email_address" class="form-control" placeholder="User's email address" value="<?php echo $user['email_address']; ?>" />
+						<label for="email_address" class="admin-crm-label">Email Address</label>
+						<input type="email" name="email_address" class="form-control admin-crm-control" placeholder="User's email address" value="<?php echo $user['email_address']; ?>" />
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="username">Username</label>
-						<input type="text" name="username" class="form-control" placeholder="Username" value="<?php echo $user['username']; ?>" />
+						<label for="username" class="admin-crm-label">Username</label>
+						<input type="text" name="username" class="form-control admin-crm-control" placeholder="Username" value="<?php echo $user['username']; ?>" />
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="user_type">User Type</label>
-						<select name="user_type" class="form-control" required>
+						<label for="user_type" class="admin-crm-label">User Type</label>
+						<select name="user_type" class="form-select admin-crm-control" required>
 							<option value="1" <?php if($user['user_type'] == 1){ echo "selected"; } ?>>Council</option>
 							<option value="4" <?php if($user['user_type'] == 4){ echo "selected"; } ?>>Council (limited)</option>
 							<option value="2" <?php if($user['user_type'] == 2){ echo "selected"; } ?>>Administrator</option>
 							<option value="3" <?php if($user['user_type'] == 3){ echo "selected"; } ?>>Tenant</option>
 						</select>
 					</div>
-					<div class="col-md-12 col-sm-12 mt-2">
-					    <label for="updatedPassword">Update Password</label>
-					    <input type="text" name="updatedPassword" class="form-control" placeholder="Enter new password" />
-					    <span class="small">Only enter a new password if you require a manual password change.</span>
+					<div class="col-md-12 col-sm-12">
+					    <label for="updatedPassword" class="admin-crm-label">Update Password</label>
+					    <input type="text" name="updatedPassword" class="form-control admin-crm-control" placeholder="Enter new password" />
+					    <span class="admin-crm-field-hint">Only enter a new password if you require a manual password change.</span>
 					</div>
-				</div>	
+				</div>
 			</div>
 			<?php if($user['user_type'] == 3) { ?>
-			<div class="p-2 bg-light mb-2">
-				<p class="lead">Tenant Information</p>
-				<div class="form-group row my-2">
+			<div class="admin-crm-section">
+				<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:home-account"></span>Tenant Information</h6>
+				<div class="row g-3">
 					<div class="col-md-3 col-sm-12">
-						<label for="ni_number">N.I Number</label>
-						<input type="text" name="ni_number" class="form-control" placeholder="National Insurance Number" value="<?php echo $user['ni_number']; ?>" />
+						<label for="ni_number" class="admin-crm-label">N.I Number</label>
+						<input type="text" name="ni_number" class="form-control admin-crm-control" placeholder="National Insurance Number" value="<?php echo $user['ni_number']; ?>" />
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="housing_officer">Housing Officer</label>
-						<input type="text" name="housing_officer" class="form-control" placeholder="Housing Officer" value="<?php echo $user['housing_officer']; ?>" />
+						<label for="housing_officer" class="admin-crm-label">Housing Officer</label>
+						<input type="text" name="housing_officer" class="form-control admin-crm-control" placeholder="Housing Officer" value="<?php echo $user['housing_officer']; ?>" />
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="date_of_birth">Date of Birth</label>
-						<input id="date_of_birth" name="date_of_birth" class="form-control js-date--west" type="text" placeholder="_ _ /_ _ /_ _ _ _" value="<?php echo date("d-m-Y", strtotime($user['date_of_birth']));  ; ?>">
+						<label for="date_of_birth" class="admin-crm-label">Date of Birth</label>
+						<input id="date_of_birth" name="date_of_birth" class="form-control admin-crm-control js-date--west" type="text" placeholder="_ _ /_ _ /_ _ _ _" value="<?php echo date("d-m-Y", strtotime($user['date_of_birth']));  ; ?>">
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="council_id">Council</label>
-						<select name="council_id" class="form-control">
+						<label for="council_id" class="admin-crm-label">Council</label>
+						<select name="council_id" class="form-select admin-crm-control">
 						<?php
 							$councils = getAllCouncils();
 							foreach($councils as $council){
@@ -172,39 +155,37 @@ include_once("views/navbar.php");
 						</select>
 					</div>
 				</div>
-				<div class="form-group row my-2">
+				<div class="row g-3 mt-1">
 					<div class="col-md-3 col-sm-12">
-						<label for="bedrooms_required">Bedrooms Required</label>
-						<input type="num" name="bedrooms_required" class="form-control" placeholder="Bedrooms Required" value="<?php echo $user['bedrooms_required']; ?>" />
+						<label for="bedrooms_required" class="admin-crm-label">Bedrooms Required</label>
+						<input type="num" name="bedrooms_required" class="form-control admin-crm-control" placeholder="Bedrooms Required" value="<?php echo $user['bedrooms_required']; ?>" />
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="preferred_area">Preferred Area(s)</label>
-						<input type="text" name="preferred_area" class="form-control" placeholder="Preferred Area(s)" value="<?php echo $user['preferred_area']; ?>" />
+						<label for="preferred_area" class="admin-crm-label">Preferred Area(s)</label>
+						<input type="text" name="preferred_area" class="form-control admin-crm-control" placeholder="Preferred Area(s)" value="<?php echo $user['preferred_area']; ?>" />
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="reason_for_move">Reason for Move</label>
-						<textarea name="reason_for_move" class="form-control" placeholder="Reason for Move"><?php echo $user['reason_for_move']; ?></textarea>
+						<label for="reason_for_move" class="admin-crm-label">Reason for Move</label>
+						<textarea name="reason_for_move" class="form-control admin-crm-control" placeholder="Reason for Move"><?php echo $user['reason_for_move']; ?></textarea>
 					</div>
 					<div class="col-md-3 col-sm-12">
-						<label for="other_information">Additional Information</label>
-						<textarea name="other_information" class="form-control" placeholder="Additional Information"><?php echo $user['other_information']; ?></textarea>
+						<label for="other_information" class="admin-crm-label">Additional Information</label>
+						<textarea name="other_information" class="form-control admin-crm-control" placeholder="Additional Information"><?php echo $user['other_information']; ?></textarea>
 					</div>
 				</div>
 			</div>
 			<?php } ?>
-			<div class="p-2 bg-light mb-2">
-				<div class="form-group row my-2 d-flex justify-content-center">
-					<button type="submit" class="btn btn-lg btn-dark d-block">Update User</button>
-				</div>
+			<div class="admin-crm-submit-wrap">
+				<button type="submit" class="btn btn-crm-primary btn-lg"><span class="iconify" data-icon="mdi:content-save-outline"></span>Update User</button>
 			</div>
 		</form>
-	</div>
-	</main>
-	<footer>
-		<div class="copyright text-center py-2">
-			<small>&copy; Copyright <?php echo date("Y"); ?> Midland Relocations Limited.</small>
+			</div>
 		</div>
-	</footer>
+		</div>
+<?php
+include_once("views/footer.php");
+?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
   $('.js-date--west').mask('00/00/0000');

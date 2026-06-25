@@ -158,7 +158,8 @@ include_once("views/footer.php");
 $(document).ready(function() {
 	if ($('#bidResults').length) {
 		$('#bidResults').DataTable({
-			responsive: true,
+			responsive: false,
+			scrollX: true,
 			ordering: false,
 			searchPane: {
 				columns: [4, 6]
