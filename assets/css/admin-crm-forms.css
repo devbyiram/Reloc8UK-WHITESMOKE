@@ -259,6 +259,10 @@
 	border-top: 1px solid #eef1f5;
 }
 
+.admin-crm-page .admin-crm-submit-wrap--end {
+	justify-content: flex-start;
+}
+
 .admin-crm-page .admin-crm-table-wrap {
 	border: 1px solid #eef1f5;
 	border-radius: 10px;

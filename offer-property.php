@@ -289,7 +289,7 @@ include_once("views/header.php");
 				<label for="fridge_freezer" class="admin-crm-label">Fridge/freezer Required?</label>
 				<input type="text" name="fridge_freezer" class="form-control admin-crm-control" placeholder="Fridge/freezer required?" />
 			</div>
-			<div class="col-md-4">
+			<div class="col-12">
 				<label for="additional_items" class="admin-crm-label">Additional Items?</label>
 				<textarea class="textarea form-control admin-crm-control" name="additional_items"></textarea>
 			</div>
@@ -328,7 +328,7 @@ include_once("views/header.php");
 		<div class="admin-crm-section">
 			<h6 class="admin-crm-section__title"><span class="iconify" data-icon="mdi:file-sign"></span>Tenancy &amp; incentive</h6>
 			<div class="row g-3">
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label for="tenancy_type" class="admin-crm-label">Tenancy Type</label>
 				<select name="tenancy_type" class="form-control admin-crm-control" required>
 					<option value="" selected disabled>Select option</option>
@@ -336,11 +336,11 @@ include_once("views/header.php");
 					<option value="EHL">EHL</option>
 				</select>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<label for="incentive_amount" class="admin-crm-label">Incentive Amount</label>
 				<input type="text" name="incentive_amount" class="form-control admin-crm-control" placeholder="Incentive amount" />
 			</div>
-			<div class="col-md-4">
+			<div class="col-12">
 				<label for="other_requirements" class="admin-crm-label">Other Requirements</label>
 				<textarea name="other_requirements" class="textarea form-control admin-crm-control"></textarea>
 			</div>
@@ -411,11 +411,11 @@ include_once("views/header.php");
 				<div class="alert alert-secondary text-center" style="display: none;"></div>
 			</div>
 		</div>
-		<div class="admin-crm-submit-wrap">
-			<div class="btn-group">
-				<button id="clearSavedData" class="btn btn-lg btn-danger">Clear Form</button>
-				<button type="submit" id="save" class="btn-lg btn btn-crm-secondary">Save For Later</button>
-				<button class="btn btn-crm-primary btn-lg" type="submit"><span class="iconify" data-icon="mdi:check-circle-outline"></span>Submit Offer</button>
+		<div class="admin-crm-submit-wrap admin-crm-submit-wrap--end">
+			<div class="d-flex flex-wrap gap-2">
+				<button id="clearSavedData" class="btn btn-danger">Clear Form</button>
+				<button type="submit" id="save" class="btn btn-crm-secondary">Save For Later</button>
+				<button class="btn btn-crm-primary" type="submit"><span class="iconify" data-icon="mdi:check-circle-outline"></span>Submit Offer</button>
 			</div>
 		</div>
 			</div>

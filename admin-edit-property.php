@@ -372,7 +372,7 @@ include_once("views/header.php");
 						</div>
 					</div>
 				</div>
-				<div class="admin-crm-submit-wrap">
+				<div class="admin-crm-submit-wrap admin-crm-submit-wrap--end">
 					<button type="submit" class="btn btn-crm-primary btn-lg"><span class="iconify" data-icon="mdi:content-save-outline"></span>Update Property</button>
 				</div>
 			</form>

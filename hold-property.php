@@ -173,7 +173,7 @@ include_once("views/header.php");
 				<input type="hidden" name="status" value="1">
 				<label for="notes" class="admin-crm-label">Add notes relevant to this hold request.</label>
 				<textarea class="textarea form-control admin-crm-control" name="notes" id="notes" placeholder="Add notes"></textarea>
-				<div class="admin-crm-submit-wrap">
+				<div class="admin-crm-submit-wrap admin-crm-submit-wrap--end">
 					<button class="btn btn-crm-primary btn-lg" type="submit"><span class="iconify" data-icon="mdi:hand-back-right-outline"></span>Hold Property</button>
 				</div>
 				</form>

@@ -242,7 +242,7 @@ include_once("views/header.php");
 						</div>
 					</div>
 				</div>
-				<div class="admin-crm-submit-wrap">
+				<div class="admin-crm-submit-wrap admin-crm-submit-wrap--end">
 					<input type="hidden" name="add_property" value="1">
 					<button type="submit" class="btn btn-crm-primary btn-lg"><span class="iconify" data-icon="mdi:plus-circle-outline"></span>Add Property</button>
 				</div>

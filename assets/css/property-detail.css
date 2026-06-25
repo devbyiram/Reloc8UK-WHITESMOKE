@@ -1902,7 +1902,46 @@
 
 /* Detail gallery — same trio carousel as listings */
 .property-detail-page--rightmove .property-detail-gallery__carousel {
+	position: relative;
 	min-height: clamp(20rem, 48vw, 36rem);
+}
+
+.property-detail-page--rightmove .property-detail-gallery__carousel .property-card-carousel__pane--main .property-card-carousel__badge {
+	position: absolute;
+	top: 0.875rem;
+	left: 0.875rem;
+	z-index: 6;
+	display: inline-flex !important;
+	align-items: center;
+	gap: 0.35rem;
+	padding: 0.35rem 0.6rem;
+	border-radius: 999px;
+	background: rgba(15, 23, 42, 0.78);
+	color: #fff;
+	pointer-events: none;
+	line-height: 1;
+}
+
+.property-detail-page--rightmove .property-detail-gallery__carousel .property-card-carousel__badge-icon {
+	font-size: 1rem;
+	flex-shrink: 0;
+	color: #fff;
+}
+
+.property-detail-page--rightmove .property-detail-gallery__carousel .property-card-carousel__badge-sep {
+	display: inline-block;
+	width: 1px;
+	height: 0.875rem;
+	background: rgba(255, 255, 255, 0.35);
+	flex-shrink: 0;
+}
+
+.property-detail-page--rightmove .property-detail-gallery__carousel .property-card-carousel__count {
+	font-size: 0.75rem !important;
+	font-weight: 600 !important;
+	color: #fff;
+	letter-spacing: 0.01em;
+	white-space: nowrap;
 }
 
 .property-detail-page--rightmove .property-detail-gallery__carousel .property-card-carousel__layout {

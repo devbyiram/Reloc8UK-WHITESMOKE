@@ -166,7 +166,7 @@ include_once("views/header.php");
 			<div class="card-body">
 				<label for="notes" class="admin-crm-label">Add notes relevant to this reservation</label>
 				<textarea class="textarea form-control admin-crm-control" name="notes" id="notes" placeholder="Add notes"></textarea>
-				<div class="admin-crm-submit-wrap">
+				<div class="admin-crm-submit-wrap admin-crm-submit-wrap--end">
 					<button class="btn btn-crm-primary btn-lg" type="submit"><span class="iconify" data-icon="mdi:bookmark-check-outline"></span>Reserve Property</button>
 				</div>
 			</div>

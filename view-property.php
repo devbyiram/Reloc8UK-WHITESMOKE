@@ -88,14 +88,14 @@ include_once("views/header.php");
 					<span class="property-card-carousel__source" data-src="./system/thumbs.php?src=assets/property_images/<?php echo $image; ?>&w=960&h=640" data-full="assets/property_images/<?php echo $image; ?>"></span>
 					<?php } ?>
 				</div>
-				<div class="property-card-carousel__badge">
-					<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:floor-plan"></span>
-					<span class="property-card-carousel__badge-sep" aria-hidden="true"></span>
-					<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:camera-outline"></span>
-					<span class="property-card-carousel__count">1/<?php echo count($property_images); ?></span>
-				</div>
 				<div class="property-card-carousel__layout">
 					<div class="property-card-carousel__pane property-card-carousel__pane--main">
+						<div class="property-card-carousel__badge">
+							<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:floor-plan"></span>
+							<span class="property-card-carousel__badge-sep" aria-hidden="true"></span>
+							<span class="iconify property-card-carousel__badge-icon" data-icon="mdi:camera-outline"></span>
+							<span class="property-card-carousel__count">1/<?php echo count($property_images); ?></span>
+						</div>
 						<a data-lightbox="property-gallery" href="assets/property_images/<?php echo $property_images[0]; ?>" class="property-detail-gallery__lightbox-link" id="property-main-lightbox">
 							<div class="property-card-image"></div>
 						</a>
