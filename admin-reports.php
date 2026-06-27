@@ -64,7 +64,7 @@ include_once("views/header.php");
 					<div class="col-md-4">
 						<label class="admin-crm-label" for="date-range-predefined">Date range (predefined)</label>
 						<select name="date-range-predefined" id="date-range-predefined" class="form-select admin-crm-control">
-							<option value="" selected>-- Select an option --</option>
+							<option value="" selected>Select an option</option>
 							<option value="1" <?php if($_POST['date-range-predefined'] == 1){ echo 'selected'; } ?>>Current month</option>
 							<option value="2" <?php if($_POST['date-range-predefined'] == 2){ echo 'selected'; } ?>>Last Month</option>
 							<option value="3" <?php if($_POST['date-range-predefined'] == 3){ echo 'selected'; } ?>>This Year</option>

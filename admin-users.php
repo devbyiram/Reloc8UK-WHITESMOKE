@@ -126,7 +126,8 @@ include_once("views/footer.php");
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#userResults').DataTable({
-		responsive:true,
+		responsive:false,
+		scrollX: true,
 		searchPane: true,
 		ordering: false
 	});
