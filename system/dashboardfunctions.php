@@ -148,3 +148,47 @@ function getAdminDashboardSummary(){
 		),
 	);
 }
+
+function getCouncilDashboardSummary($userId){
+	$availableProperties = dashboardCountProperties(0);
+
+	$bids = getUserBids($userId);
+	$totalBids = count($bids);
+	$pendingBids = 0;
+
+	foreach($bids as $bid){
+		if($bid['status'] == '1'){
+			$pendingBids++;
+		}
+	}
+
+	$totalContacts = count(getAllContacts($userId));
+
+	return array(
+		'cards' => array(
+			array(
+				'label' => 'Available Properties',
+				'value' => (string) $availableProperties,
+				'icon' => 'bx:bx-building-house',
+				'tone' => 'sky',
+				'route' => 'properties.php',
+				'subtitle' => 'Available to reserve',
+			),
+			array(
+				'label' => 'My Bids',
+				'value' => (string) $totalBids,
+				'icon' => 'bx:bx-list-check',
+				'tone' => 'violet',
+				'route' => 'my-bids.php',
+				'subtitle' => $pendingBids.' pending review',
+			),
+			array(
+				'label' => 'My Contacts',
+				'value' => (string) $totalContacts,
+				'icon' => 'bx:bx-book-content',
+				'tone' => 'slate',
+				'route' => 'my-contacts.php',
+			),
+		),
+	);
+}

@@ -24,7 +24,7 @@ if(isset($_POST['delete-property']) && $_POST['delete-property'] == "1"){
 		//$deletePropertyBids = deletePropertyBids($_POST['pid']);
 		
 		//if($deletePropertyBids){
-			header('Location: admin.php?property_deleted=true');
+			header('Location: admin-properties.php?property_deleted=true');
 		//}
 	}
 }

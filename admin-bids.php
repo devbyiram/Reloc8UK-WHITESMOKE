@@ -26,6 +26,13 @@ $portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/ad
 include_once("views/header.php");
 ?>
 	<div class="admin-table-page">
+		<?php if(isset($_GET['bid_action'])){ ?>
+		<div class="alert alert-dismissible fade show d-flex align-items-center" role="alert" style="background-color:#10b981; color:#ffffff; border:none;">
+			<span class="iconify me-2" data-icon="mdi:check-circle-outline"></span>
+			<span><?php echo ($_GET['bid_action'] == 'accept') ? 'Bid approved successfully.' : 'Bid rejected successfully.'; ?></span>
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<?php } ?>
 		<div class="card admin-table-panel mb-4">
 			<div class="card-header admin-table-panel__header">
 				<div class="admin-table-panel__heading">
@@ -34,10 +41,6 @@ include_once("views/header.php");
 						<h5 class="mb-0">Bids</h5>
 						<p class="admin-table-panel__subtitle mb-0">Review and manage reservations, holds, and offers.</p>
 					</div>
-				</div>
-				<div class="admin-table-panel__actions">
-					<a class="btn admin-table-btn admin-table-btn--primary" href="admin-add-property.php">Add Property</a>
-					<a class="btn admin-table-btn admin-table-btn--outline" href="admin-add-user.php">Add User</a>
 				</div>
 			</div>
 			<div class="card-body">
@@ -111,8 +114,8 @@ include_once("views/header.php");
 										<?php if($bid['type']==3) { ?>
 											<a href="admin-print-bid.php?id=<?php echo $bid['id']; ?>" class="btn btn-sm btn-warning" target="_blank">Print</a>
 										<?php } ?>
-										<a href="admin-manage-bids.php?action=accept&bid=<?php echo $bid['id']; ?>&pid=<?php echo $bid['property_id']; ?>" class="btn btn-sm btn-primary" data-id="<?php echo $bid['id']; ?>">Approve</a>
-										<a href="admin-manage-bids.php?action=reject&bid=<?php echo $bid['id']; ?>&pid=<?php echo $bid['property_id']; ?>" class="btn btn-sm btn-danger" data-id="<?php echo $bid['id']; ?>">Reject</a>
+										<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#bidActionModal" data-action="accept" data-bid="<?php echo $bid['id']; ?>" data-pid="<?php echo $bid['property_id']; ?>" data-property="<?php echo htmlspecialchars($bid['address1'] . ", " . $bid['town'], ENT_QUOTES); ?>" data-user="<?php echo htmlspecialchars($bid['name'] . " (" . $bid['username'] . ")", ENT_QUOTES); ?>">Approve</button>
+										<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#bidActionModal" data-action="reject" data-bid="<?php echo $bid['id']; ?>" data-pid="<?php echo $bid['property_id']; ?>" data-property="<?php echo htmlspecialchars($bid['address1'] . ", " . $bid['town'], ENT_QUOTES); ?>" data-user="<?php echo htmlspecialchars($bid['name'] . " (" . $bid['username'] . ")", ENT_QUOTES); ?>">Reject</button>
 									</div></td>
 							</tr>
 							<?php
@@ -120,6 +123,31 @@ include_once("views/header.php");
 							?>
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="bidActionModal" tabindex="-1" aria-labelledby="bidActionModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="bidActionModalLabel">Confirm</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p id="bidActionMessage">Please confirm this action.</p>
+					<div class="d-flex align-items-center gap-3 p-3 border rounded">
+						<span class="iconify" data-icon="mdi:clipboard-text-outline" style="font-size:40px; color:#94a3b8;"></span>
+						<div>
+							<p class="mb-1 fw-semibold" id="bidActionProperty"></p>
+							<p class="mb-0 text-muted" id="bidActionUser"></p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+					<a href="#" id="bidActionConfirm" class="btn btn-primary">Confirm</a>
 				</div>
 			</div>
 		</div>
@@ -138,6 +166,31 @@ $(document).ready(function() {
 		ordering: false,
 	});
 } );
+</script>
+<script type="text/javascript">
+(function(){
+	var bidModal = document.getElementById('bidActionModal');
+	if(bidModal){
+		bidModal.addEventListener('show.bs.modal', function(event){
+			var btn = event.relatedTarget;
+			if(!btn){ return; }
+			var action = btn.getAttribute('data-action') || '';
+			var bid = btn.getAttribute('data-bid') || '';
+			var pid = btn.getAttribute('data-pid') || '';
+			var isAccept = (action === 'accept');
+			document.getElementById('bidActionModalLabel').textContent = isAccept ? 'Approve Bid' : 'Reject Bid';
+			document.getElementById('bidActionMessage').textContent = isAccept
+				? 'Please confirm that you would like to approve this bid.'
+				: 'Please confirm that you would like to reject this bid.';
+			document.getElementById('bidActionProperty').textContent = btn.getAttribute('data-property') || '';
+			document.getElementById('bidActionUser').textContent = btn.getAttribute('data-user') || '';
+			var confirmBtn = document.getElementById('bidActionConfirm');
+			confirmBtn.textContent = isAccept ? 'Approve' : 'Reject';
+			confirmBtn.className = 'btn ' + (isAccept ? 'btn-primary' : 'btn-danger');
+			confirmBtn.setAttribute('href', 'admin-manage-bids.php?action=' + encodeURIComponent(action) + '&bid=' + encodeURIComponent(bid) + '&pid=' + encodeURIComponent(pid));
+		});
+	}
+})();
 </script>
 <script type="text/javascript">
 $(document).ready(function(){

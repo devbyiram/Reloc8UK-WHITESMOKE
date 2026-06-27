@@ -46,8 +46,10 @@ include_once("views/header.php");
 		<?php 
 		if($success == 1){
 		?>
-		<div class="alert alert-success text-center mb-4">
-			Contact added to your contacts list
+		<div class="alert alert-dismissible fade show mb-4 d-flex align-items-center" role="alert" style="background-color:#10b981; color:#ffffff; border:none;">
+			<span class="iconify me-2" data-icon="mdi:check-circle-outline"></span>
+			<span>Contact added to your contacts list</span>
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		<?php } ?>
 		<?php 
@@ -146,7 +148,7 @@ include_once("views/header.php");
 			<div class="admin-crm-subpanel mb-3">
 				<p class="mb-0">NOTE: The contacts entered on this page are for the purpose of offering a property. You will be able to select a contact from each dropdown within the offer property page and it will email a copy of the tenants information to each contact.</p>
 			</div>
-			<div class="admin-crm-submit-wrap">
+			<div class="admin-crm-submit-wrap admin-crm-submit-wrap--end">
 				<button type="submit" class="btn btn-crm-primary btn-lg"><span class="iconify" data-icon="mdi:account-plus-outline"></span>Add Contact</button>
 			</div>
 		</form>

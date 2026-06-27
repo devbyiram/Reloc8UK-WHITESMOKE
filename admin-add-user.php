@@ -37,7 +37,9 @@ if(isset($_POST['add-user']) && $_POST['add-user'] == 1){
 		
 		$stmt->execute([$username, $name, $email, $hashedPassword, $user_type]);
 		
-		if(!sendUserNewPassword($pdo->lastInsertId(),$password)){
+		$newUserId = $pdo->lastInsertId();
+		
+		if(!sendUserNewPassword($newUserId,$password)){
 			$errors["error_sending"] = "Error sending email to user";
 		}
 	}else{
@@ -45,11 +47,11 @@ if(isset($_POST['add-user']) && $_POST['add-user'] == 1){
 	}
 	
 	if(count($errors) == 0){
-		header('Location: admin.php');
+		header('Location: admin-edit-user.php?id='.$newUserId);
 	}
 		
 }
-$page = "admin";
+$page = "admin-users";
 $page_title = 'Reloc8UK Admin - Add New User';
 $portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/admin-crm-forms.css?ver='.time().'">';
 include_once("views/header.php");
@@ -103,7 +105,7 @@ include_once("views/header.php");
 						<p class="admin-crm-field-hint mb-0">Users with user type <em>Administrator</em> will have <strong>full permission access</strong> to the portal, allowing them to add/edit/delete properties &amp; users.</p>
 					</div>
 				</div>
-				<div class="admin-crm-submit-wrap">
+				<div class="admin-crm-submit-wrap admin-crm-submit-wrap--end">
 					<button type="submit" class="btn btn-crm-primary btn-lg"><span class="iconify" data-icon="mdi:account-plus-outline"></span>Add User</button>
 				</div>
 			</form>

@@ -34,11 +34,14 @@ if(isset($_POST['edit-user']) && $_POST['edit-user'] == 1){
 		$reason_for_move = $_POST['reason_for_move'];
 		$other_information = $_POST['other_information'];
 		$council_id = $_POST['council_id'];
-		$date_of_birth = date("Y-d-m", strtotime($_POST['date_of_birth']));  
+		$date_of_birth = date("Y-m-d", strtotime($_POST['date_of_birth']));  
 		$bedrooms_required = $_POST['bedrooms_required'];
 		$preferred_area = $_POST['preferred_area'];
-		
-		$sql = "UPDATE users SET name='$name',username='$username',email_address='$email_address',user_type='$user_type',ni_number='$ni_number',housing_officer='$housing_officer',reason_for_move='$reason_for_move',other_information='$other_information',date_of_birth='$date_of_birth',council_id='$council_id',bedrooms_required='$bedrooms_required',preferred_area='$preferred_area' WHERE id='$id'";
+
+		$council_id_sql = ($council_id === '' || $council_id === null) ? "NULL" : "'".$council_id."'";
+		$bedrooms_required_sql = ($bedrooms_required === '' || $bedrooms_required === null) ? "NULL" : "'".$bedrooms_required."'";
+
+		$sql = "UPDATE users SET name='$name',username='$username',email_address='$email_address',user_type='$user_type',ni_number='$ni_number',housing_officer='$housing_officer',reason_for_move='$reason_for_move',other_information='$other_information',date_of_birth='$date_of_birth',council_id=$council_id_sql,bedrooms_required=$bedrooms_required_sql,preferred_area='$preferred_area' WHERE id='$id'";
 	}else{
 	    
 		$sql = "UPDATE users SET name='$name',username='$username',email_address='$email_address',user_type='$user_type'";
@@ -58,12 +61,19 @@ if(isset($_POST['edit-user']) && $_POST['edit-user'] == 1){
 
 
 $user = getUser($_GET['id']);
-$page = "admin";
+$page = "admin-users";
 $page_title = 'Reloc8UK Admin - Edit User';
 $portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/admin-crm-forms.css?ver='.time().'">';
 include_once("views/header.php");
 ?>
 		<div class="admin-crm-page">
+		<?php if(!empty($_GET['updated']) && $_GET['updated'] == "true"){ ?>
+		<div class="alert alert-dismissible fade show mb-4 d-flex align-items-center" role="alert" style="background-color:#10b981; color:#ffffff; border:none;">
+			<span class="iconify me-2" data-icon="mdi:check-circle-outline"></span>
+			<span>User updated!</span>
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		<?php } ?>
 		<div class="card admin-crm-page-header mb-4">
 			<div class="card-body">
 				<div class="admin-crm-page-header__row">
@@ -72,9 +82,6 @@ include_once("views/header.php");
 						<p class="admin-crm-page-header__subtitle">You are currently editing user: <?php echo $user['name']; ?></p>
 					</div>
 				</div>
-				<?php if(!empty($_GET['updated']) && $_GET['updated'] == "true"){ ?>
-				<div class="alert alert-success mb-0 mt-3">User updated!</div>
-				<?php } ?>
 			</div>
 		</div>
 		<div class="card admin-crm-panel mb-4">
@@ -173,7 +180,7 @@ include_once("views/header.php");
 					</div>
 				</div>
 			</div>
-			<div class="admin-crm-submit-wrap">
+			<div class="admin-crm-submit-wrap admin-crm-submit-wrap--end">
 				<button type="submit" class="btn btn-crm-primary btn-lg"><span class="iconify" data-icon="mdi:content-save-outline"></span>Update User</button>
 			</div>
 		</form>

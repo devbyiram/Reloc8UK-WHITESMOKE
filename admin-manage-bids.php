@@ -11,7 +11,7 @@ if(!empty($_GET['action'])){
 	$result = managePropertyBids($pid,$bid,$action);
 
 	if($result){
-		header("Location: admin.php");
+		header("Location: admin-bids.php?bid_action=".$action);
 	}
 }
 

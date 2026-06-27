@@ -19,7 +19,7 @@ if(!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 2){
 $deleteUser = deleteUser($_GET['id']);
 	
 if($deleteUser){
-    header('Location: admin.php?user_deleted=true');
+    header('Location: admin-users.php?user_deleted=true');
 }
 
 ?>

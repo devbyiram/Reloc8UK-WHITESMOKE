@@ -17,11 +17,10 @@ $page = "home";
 $portal_extra_head = '<link rel="stylesheet" type="text/css" href="assets/css/styles.css?ver='.time().'">
 <link rel="stylesheet" type="text/css" href="assets/css/property-listing.css?ver='.time().'">
 <link rel="stylesheet" type="text/css" href="assets/css/property-card.css?ver='.time().'">
-<link rel="stylesheet" type="text/css" href="assets/css/property-card-rightmove.css?ver='.time().'">'.(($_SESSION['user_type'] == "2") ? '
-<link rel="stylesheet" type="text/css" href="assets/css/admin-dashboard.css?ver='.time().'">' : '');
+<link rel="stylesheet" type="text/css" href="assets/css/property-card-rightmove.css?ver='.time().'">
+<link rel="stylesheet" type="text/css" href="assets/css/admin-dashboard.css?ver='.time().'">';
 include_once("views/header.php");
 ?>
-		<?php if($_SESSION['user_type'] == "2") { ?>
 		<div class="dashboard-welcome dashboard-welcome--portal mb-4">
 			<div class="dashboard-welcome__inner">
 				<div class="dashboard-welcome__icon" aria-hidden="true">
@@ -34,23 +33,11 @@ include_once("views/header.php");
 				</div>
 			</div>
 		</div>
-		<?php } else { ?>
-		<div class="row">
-			<div class="col-12">
-				<div class="card mb-4">
-					<div class="card-header">
-						<h5 class="mb-0">Welcome to the Reloc8UK Property Portal, <?php echo $_SESSION['user_name']; ?></h5>
-					</div>
-					<div class="card-body">
-						<p class="mb-0">Welcome to the Reloc8UK property portal. This portal has been set up to allow councils, and tenants, to view the current properties available to let and, where applicable, reserve or place a hold on a property.</p>
-						<p class="mb-0 mt-2">Reloc8UK aim to list all currently available properties, and upcoming properties, on the portal as quickly as possible.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<?php } ?>
 		<?php if($_SESSION['user_type'] == "2") {
 			$adminDashboard = getAdminDashboardSummary();
+			include_once('views/partials/admin-dashboard.php');
+		} elseif($_SESSION['user_type'] == "1" || $_SESSION['user_type'] == "4") {
+			$adminDashboard = getCouncilDashboardSummary($_SESSION['user_id']);
 			include_once('views/partials/admin-dashboard.php');
 		} ?>
 		<div class="row property-listings-section">
