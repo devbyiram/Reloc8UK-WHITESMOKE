@@ -1,4 +1,4 @@
-/* Rightmove-inspired listing cards — properties.php only */
+/* Rightmove-inspired listing cards — properties.php + index.php */
 
 .property-listings-grid-page {
 	margin: 0;
@@ -236,9 +236,18 @@
 	color: #0369a1;
 }
 
-.property-card--rightmove .property-card-tag--status-available {
+.property-card--rightmove .property-card-tag--status.property-card-tag--status-available {
 	background: rgba(5, 150, 105, 0.12);
 	color: #059669;
+	font-size: 0.8125rem !important;
+	padding: 0.35rem 0.7rem;
+}
+
+/* Index home + properties results — same prominent Available tag */
+.property-listings-section .property-card--rightmove .property-card-tag--status.property-card-tag--status-available,
+.property-results-section .property-card--rightmove .property-card-tag--status.property-card-tag--status-available {
+	font-size: 0.8125rem !important;
+	padding: 0.35rem 0.7rem;
 }
 
 .property-card--rightmove .property-card-tag--status-reserved,

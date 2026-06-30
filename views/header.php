@@ -25,13 +25,8 @@
 </head>
 
 <body>
-	<div class="layout-wrapper layout-content-navbar">
+	<div class="layout-wrapper layout-content-navbar layout-without-menu">
 		<div class="layout-container">
-			<?php
-			if(empty($portal_hide_sidebar)) {
-			include_once("views/sidebar.php");
-			}
-			?>
 
 			<div class="layout-page">
 				<?php

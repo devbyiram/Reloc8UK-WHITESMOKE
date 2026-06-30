@@ -320,12 +320,12 @@ include_once("views/header.php");
 					    <?php
 					        if($_SESSION['user_type'] != 4){
 					    ?>
-								<a href="reserve-property.php?id=<?php echo $property['id']; ?>" class="property-detail-action-btn property-detail-action-btn--reserve" title="Reserve this property for 24 hours" data-bs-toggle="tooltip">Reserve</a>
-								<a href="hold-property.php?id=<?php echo $property['id']; ?>" class="property-detail-action-btn property-detail-action-btn--hold" title="Hold this property (holding fee required)" data-bs-toggle="tooltip">Hold</a>
+								<a href="reserve-property.php?id=<?php echo $property['id']; ?>" class="property-detail-action-btn property-detail-action-btn--reserve" title="Reserve this property for 24 hours" data-bs-toggle="tooltip"><span class="iconify property-detail-action-btn__icon" data-icon="mdi:bookmark-check-outline" aria-hidden="true"></span>Reserve</a>
+								<a href="hold-property.php?id=<?php echo $property['id']; ?>" class="property-detail-action-btn property-detail-action-btn--hold" title="Hold this property (holding fee required)" data-bs-toggle="tooltip"><span class="iconify property-detail-action-btn__icon" data-icon="mdi:hand-back-right-outline" aria-hidden="true"></span>Hold</a>
 						<?php
 					        }
 					    ?>
-								<a href="offer-property.php?id=<?php echo $property['id']; ?>" class="property-detail-action-btn property-detail-action-btn--offer" title="Offer this property to a tenant" data-bs-toggle="tooltip">Offer</a>
+								<a href="offer-property.php?id=<?php echo $property['id']; ?>" class="property-detail-action-btn property-detail-action-btn--offer" title="Offer this property to a tenant" data-bs-toggle="tooltip"><span class="iconify property-detail-action-btn__icon" data-icon="mdi:file-document-outline" aria-hidden="true"></span>Offer</a>
 					<?php 
 						}
 					?>
